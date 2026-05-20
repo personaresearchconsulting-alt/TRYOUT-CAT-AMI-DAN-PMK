@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CAT PMK PERSONALITY INVENTORY - Persona Research & Consulting</title>
+<style>
+:root{
+--primary:#0A1128;
+--deep-space:#1C2541;
+--accent:#C5A880;
+--bg:#F4F5F7;
+--white:#FFFFFF;
+--success:#27AE60;
+--danger:#E74C3C;
+--warning:#E67E22;
+--premium-gray:#5C677D;
+}
+*{box-sizing:border-box;-webkit-user-select:none;user-select:none}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);margin:0;padding:0;display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden}
+header{background:var(--primary);color:var(--accent);padding:.8rem;text-align:center;border-bottom:4px solid var(--accent);font-weight:800;font-size:1.2rem;letter-spacing:2px;text-transform:uppercase}
+#login-screen{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:var(--white);padding:40px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.08);width:100%;max-width:450px;text-align:center;border-top:5px solid var(--accent)}
+.login-card h2{color:var(--primary);font-size:1.6rem;margin-bottom:5px;font-weight:700}
+.login-sub{color:var(--premium-gray);font-size:.85rem;margin-bottom:25px;text-transform:uppercase;letter-spacing:1px}
+.login-card input{width:100%;padding:14px;margin-bottom:20px;border:1.5px solid #E2E8F0;border-radius:6px;font-size:16px;outline:none;background:#F8FAFC;color:var(--primary)}
+.main-container{display:none;flex-direction:column;max-width:980px;margin:15px auto;padding:0 15px;width:100%;gap:15px}
+.content-area{background:var(--white);padding:25px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.04);display:flex;flex-direction:column}
+.meta-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #E2E8F0;font-size:.8rem;font-weight:600;color:var(--premium-gray)}
+.tier-badge{background:var(--primary);color:var(--accent);padding:3px 8px;border-radius:4px;font-weight:700;font-size:.7rem;text-transform:uppercase}
+.q-text{font-size:1.05rem;font-weight:600;color:var(--primary);margin-bottom:20px;line-height:1.8;text-align:justify}
+.likert-wrapper{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px}
+.likert-option{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 10px;border:1.5px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:.2s;background:#F8FAFC;min-height:78px;text-align:center}
+.likert-option:hover{border-color:var(--accent);background:#FFFDF5;transform:translateY(-2px)}
+.likert-option.selected{border-color:var(--primary);background:#EEF2FF;border-width:2px}
+.scale-num{display:none}
+.likert-option.selected .scale-num{background:var(--accent);color:var(--primary)}
+.scale-text{font-size:.8rem;font-weight:600;color:var(--primary)}
+.sidebar{background:var(--white);padding:20px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.04);border-top:4px solid var(--accent);margin-bottom:30px}
+.summary-box{background:#F8FAFC;border:1px solid #E2E8F0;padding:12px;border-radius:6px;font-size:.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;color:var(--primary)}
+.progress-wrap{width:100%;height:12px;background:#E2E8F0;border-radius:20px;overflow:hidden;margin-top:10px}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));transition:.3s}
+.nav-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:10px}
+.nav-dot{padding:10px 0;text-align:center;background:#F1F5F9;border-radius:4px;cursor:pointer;font-size:12px;font-weight:700;border:1px solid #E2E8F0;color:var(--primary)}
+.nav-dot.current{border:2px solid var(--accent);background:#FFFDF5}
+.nav-dot.filled{background:var(--primary);color:var(--accent)}
+.btn{padding:12px 18px;border:none;border-radius:6px;cursor:pointer;font-weight:700;text-transform:uppercase;width:100%;font-size:.85rem;letter-spacing:.5px}
+.btn-primary{background:var(--primary);color:var(--accent)}
+.btn-success{background:var(--success);color:white}
+#timer-box{font-weight:800;color:var(--danger)}
+#result-screen{display:none;padding:40px 20px;text-align:center;max-width:1000px;margin:0 auto}
+.review-card{background:white;padding:14px 16px;margin-bottom:10px;border-radius:8px;text-align:left;border-left:6px solid var(--primary);box-shadow:0 2px 8px rgba(0,0,0,.04);line-height:1.45}
+@media(max-width:768px){
+.likert-wrapper{grid-template-columns:repeat(2,1fr)}
+.nav-grid{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+<body oncontextmenu="return false;">
+<header>PERSONA RESEARCH & CONSULTING</header>
+<div id="login-screen">
+<div class="login-card">
+<h2>PMK (Penelusuran Mental Kepribadian)</h2>
+<div class="login-sub">Behavioral Assessment System</div>
+<input id="student-name" placeholder="Masukkan Nama Lengkap Peserta" type="text"/>
+<button class="btn btn-primary" onclick="startAssessment()">Mulai Asesmen</button>
+</div>
+</div>
+<div class="main-container" id="main-cat-screen">
+<div class="content-area">
+<div class="meta-header">
+<span id="current-q-num"></span>
+<span class="tier-badge" id="dimensi-badge"></span>
+</div>
+<div class="q-text" id="stem-container"></div>
+<div class="likert-wrapper" id="options-wrapper"></div>
+<div style="display:flex;gap:10px;margin-top:15px;">
+<button class="btn btn-primary" id="prev-btn" onclick="prevQuestion()">Kembali</button>
+<button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Selanjutnya</button>
+</div>
+</div>
+<div class="sidebar">
+<div class="summary-box">
+<div>Nama: <strong id="meta-name"></strong></div>
+<div>Timer: <strong id="timer-box">45:00</strong></div>
+<div>Progres: <strong><span id="answeredCount">0</span>/50</strong></div>
+</div>
+<div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+<h4 style="margin:15px 0 5px 0;color:var(--primary)">Peta Navigasi</h4>
+<div class="nav-grid" id="nav-grid"></div>
+<button class="btn btn-success" onclick="triggerDirectSubmit()" style="margin-top:20px">Selesai & Proses Profil</button>
+</div>
+</div>
+<div id="result-screen">
+<h1 id="res-name"></h1>
+<div id="dimensi-score-list" style="max-width:780px;margin:0 auto 20px auto"></div>
+<div style="margin:20px 0"><button class="btn btn-primary" onclick="downloadResult()" style="max-width:280px">Download Hasil Evaluasi</button></div><div id="review-list"></div>
+</div>
+<script>
+const masterData=[
+{id:1,dim:'Integritas Operasional',flag:'FG',key:5,explanation:'Menggambarkan kecenderungan tetap mematuhi aturan dan prosedur kerja meskipun berada dalam tekanan operasional, situasi sibuk, atau pengaruh lingkungan yang mendorong untuk mengambil jalan yang lebih cepat namun tidak sesuai ketentuan.',stem:'Ketika beberapa rekan mulai menganggap tahapan administrasi tertentu tidak perlu dilakukan secara lengkap karena situasi pekerjaan sangat sibuk, saya tetap memilih menjalankan prosedur sesuai ketentuan walaupun proses menjadi lebih lama.'},
+{id:2,dim:'Stabilitas Emosi',flag:'RV',key:1,explanation:'Menunjukkan bahwa individu masih mudah membawa tekanan emosional ke dalam aktivitas kerja sehingga konsentrasi, objektivitas, dan kestabilan pengambilan keputusan dapat terganggu dalam periode tertentu.',stem:'Saat menerima kritik yang menurut saya disampaikan dengan cara kurang menghargai di depan orang lain, saya biasanya masih terus memikirkan kejadian tersebut hingga cukup mengganggu fokus pekerjaan berikutnya.'},
+{id:3,dim:'Kedisiplinan Kerja',flag:'FG',key:5,explanation:'Mencerminkan disiplin internal dalam menjalankan kewajiban kerja secara konsisten walaupun tidak berada di bawah pengawasan langsung maupun evaluasi intensif dari atasan.',stem:'Walaupun tidak ada pengawasan langsung dari atasan pada saat bekerja, saya tetap berusaha menjalankan tugas sesuai aturan waktu dan prosedur yang berlaku.'},
+{id:4,dim:'Pengendalian Diri',flag:'FG',key:4,explanation:'Menunjukkan kemampuan menjaga respons verbal maupun perilaku tetap terkendali saat menghadapi tekanan sosial, provokasi, atau komunikasi yang berpotensi memancing emosi.',stem:'Ketika menghadapi orang yang berbicara dengan nada tinggi dan memancing emosi, saya berusaha menjaga cara bicara tetap tenang agar situasi tidak berkembang menjadi konflik.'},
+{id:5,dim:'Loyalitas Institusi',flag:'FG',key:5,explanation:'Menggambarkan kesediaan menjaga citra, kehormatan, dan kepentingan institusi dalam berbagai situasi, termasuk ketika menghadapi ketidaknyamanan pribadi atau perbedaan pendapat terhadap kebijakan tertentu.',stem:'Walaupun terdapat kebijakan yang belum sepenuhnya saya setujui, saya tetap menjaga citra institusi ketika berbicara dengan masyarakat atau di media sosial pribadi.'},
+{id:6,dim:'Adaptasi Tekanan',flag:'RV',key:2,explanation:'Menunjukkan adanya kecenderungan penurunan motivasi, munculnya perilaku menunda pekerjaan, atau penghindaran tanggung jawab ketika tekanan kerja berlangsung dalam intensitas tinggi dan waktu yang cukup lama.',stem:'Ketika pekerjaan berlangsung sangat padat selama beberapa hari berturut-turut, saya mulai kehilangan motivasi sehingga beberapa tugas kecil cenderung saya tunda.'},
+{id:7,dim:'Kerja Sama Tim',flag:'FG',key:4,explanation:'Mencerminkan kemampuan membangun kerja sama yang sehat melalui kesediaan membantu rekan lain demi kelancaran tugas bersama tanpa harus selalu menunggu instruksi formal.',stem:'Saat melihat rekan mengalami kesulitan memahami tugas sementara situasi kerja cukup sibuk, saya biasanya mencoba membantu menjelaskan agar pekerjaan berjalan lebih lancar.'},
+{id:8,dim:'Kontrol Impuls',flag:'RV',key:1,explanation:'Menggambarkan kecenderungan mengambil tindakan atau menyampaikan respons secara spontan tanpa mempertimbangkan dampak jangka panjang terhadap hubungan profesional maupun citra diri.',stem:'Saat merasa kecewa terhadap keputusan tertentu, saya pernah memiliki dorongan untuk menyampaikan sindiran melalui media sosial.'},
+{id:9,dim:'Profesionalisme',flag:'FG',key:5,explanation:'Mencerminkan kemampuan menjaga kualitas pelayanan, komunikasi, dan pelaksanaan tugas tetap profesional meskipun sedang menghadapi persoalan pribadi di luar pekerjaan.',stem:'Walaupun sedang menghadapi persoalan pribadi di luar pekerjaan, saya tetap berusaha menjaga pelayanan dan kualitas komunikasi profesional.'},
+{id:10,dim:'Tanggung Jawab',flag:'FG',key:5,explanation:'Menunjukkan adanya rasa tanggung jawab dan keberanian untuk mengakui kondisi sebenarnya atas pekerjaan yang dilakukan, termasuk ketika terjadi kesalahan atau kekurangan dalam pelaksanaan tugas.',stem:'Jika terdapat kesalahan pada pekerjaan yang berada dalam pengawasan saya, saya lebih memilih menjelaskan kondisi sebenarnya dibanding mencari alasan pembenaran.'},
+{id:11,dim:'Persistensi Kerja',flag:'FG',key:5,explanation:'Menunjukkan daya tahan dan orientasi penyelesaian tugas.',stem:'Walaupun pekerjaan terasa monoton dan tidak mendapat apresiasi langsung, saya tetap berusaha menyelesaikannya secara konsisten.'},
+{id:12,dim:'Integritas Operasional',flag:'RV',key:1,explanation:'Pembenaran terhadap pelanggaran kecil perlu dicermati.',stem:'Menurut saya, sedikit menyesuaikan isi laporan agar tidak menimbulkan pertanyaan tambahan masih dapat dimaklumi selama tujuan akhirnya baik.'},
+{id:13,dim:'Stabilitas Emosi',flag:'FG',key:4,explanation:'Menunjukkan kemampuan menerima evaluasi secara objektif.',stem:'Ketika menerima kritik cukup tajam mengenai hasil kerja, saya mencoba memahami isi masukan tersebut terlebih dahulu sebelum bereaksi.'},
+{id:14,dim:'Loyalitas Institusi',flag:'RV',key:2,explanation:'Sikap sinis terhadap organisasi dapat memengaruhi perilaku kerja.',stem:'Saya terkadang merasa tidak perlu terlalu memikirkan reputasi institusi selama kepentingan pribadi saya tetap aman.'},
+{id:15,dim:'Pengendalian Diri',flag:'RV',key:1,explanation:'Ledakan emosi pasif dapat berdampak terhadap relasi profesional.',stem:'Saat merasa pendapat saya diabaikan terus-menerus, saya cenderung mengurangi kontribusi tanpa menjelaskan alasan sebenarnya.'},
+{id:16,dim:'Kerja Sama Tim',flag:'FG',key:4,explanation:'Mencerminkan fleksibilitas dalam bekerja dengan berbagai karakter.',stem:'Saya tetap dapat bekerja efektif dengan rekan yang memiliki gaya komunikasi berbeda dengan saya.'},
+{id:17,dim:'Profesionalisme',flag:'FG',key:5,explanation:'Menunjukkan kemampuan menjaga komunikasi profesional.',stem:'Dalam situasi pekerjaan yang melelahkan, saya tetap berusaha menjaga cara berbicara kepada rekan maupun atasan agar tetap sopan.'},
+{id:18,dim:'Adaptasi Tekanan',flag:'FG',key:4,explanation:'Menggambarkan kemampuan menyesuaikan diri terhadap perubahan.',stem:'Ketika jadwal kerja berubah mendadak sementara waktu persiapan terbatas, saya mencoba menyesuaikan ritme kerja daripada terus mengeluh.'},
+{id:19,dim:'Kontrol Impuls',flag:'FG',key:4,explanation:'Menunjukkan kemampuan mempertimbangkan dampak tindakan.',stem:'Sebelum mengirim pesan penting ketika sedang emosi, saya biasanya membaca ulang isi pesan tersebut beberapa kali.'},
+{id:20,dim:'Konsistensi Sikap',flag:'FG',key:5,explanation:'Menggambarkan kestabilan perilaku kerja.',stem:'Baik ketika diawasi maupun saat bekerja sendiri, saya berusaha mempertahankan standar perilaku yang relatif sama.'},
+{id:21,dim:'Integritas Operasional',flag:'FG',key:5,explanation:'Menunjukkan kesadaran menjaga aturan kerja.',stem:'Saya merasa penting menjaga kerahasiaan informasi pekerjaan walaupun sedang berbicara dengan teman dekat di luar lingkungan kerja.'},
+{id:22,dim:'Stabilitas Emosi',flag:'RV',key:1,explanation:'Sensitivitas berlebihan dapat mengganggu objektivitas.',stem:'Perubahan ekspresi kecil dari rekan kerja kadang membuat saya memikirkan kemungkinan adanya penilaian negatif terhadap diri saya.'},
+{id:23,dim:'Kerja Sama Tim',flag:'FG',key:4,explanation:'Menunjukkan kemampuan membangun koordinasi.',stem:'Saya dapat menerima masukan dari rekan kerja meskipun cara penyampaiannya tidak selalu sesuai harapan saya.'},
+{id:24,dim:'Persistensi Kerja',flag:'RV',key:2,explanation:'Penghindaran tugas sulit menunjukkan persistensi rendah.',stem:'Jika pekerjaan terlihat terlalu rumit dan tidak ada pengawasan langsung, saya kadang menundanya lebih lama dari yang seharusnya.'},
+{id:25,dim:'Tanggung Jawab',flag:'FG',key:5,explanation:'Menunjukkan disiplin terhadap kewajiban kerja.',stem:'Walaupun tidak ada pemeriksaan langsung, saya tetap berusaha menyelesaikan tugas sesuai standar yang telah ditetapkan.'},
+{id:26,dim:'Adaptasi Tekanan',flag:'FG',key:4,explanation:'Menunjukkan fleksibilitas terhadap perubahan kerja.',stem:'Ketika harus menggunakan sistem baru yang belum familiar, saya mencoba mempelajarinya secara bertahap tanpa terlalu mengeluh.'},
+{id:27,dim:'Profesionalisme',flag:'RV',key:2,explanation:'Perilaku defensif profesional perlu dipantau.',stem:'Jika saya merasa keputusan atasan kurang tepat, saya cenderung menunjukkan ketidaksetujuan melalui penurunan antusiasme kerja.'},
+{id:28,dim:'Kontrol Impuls',flag:'FG',key:4,explanation:'Menggambarkan kemampuan mempertimbangkan dampak perilaku.',stem:'Ketika menghadapi situasi yang memancing emosi, saya mencoba menenangkan diri terlebih dahulu sebelum mengambil keputusan.'},
+{id:29,dim:'Konsistensi Sikap',flag:'RV',key:2,explanation:'Perubahan perilaku drastis menunjukkan inkonsistensi.',stem:'Cara saya memperlakukan orang lain dapat berubah tergantung apakah mereka dapat membantu kepentingan saya atau tidak.'},
+{id:30,dim:'Ketahanan Mental',flag:'FG',key:5,explanation:'Menggambarkan daya tahan terhadap tekanan operasional.',stem:'Meskipun ritme pekerjaan padat dan melelahkan, saya tetap mencoba menjaga kualitas keputusan agar tidak terburu-buru.'},
+{id:31,dim:'Integritas Operasional',flag:'FG',key:5,explanation:'Menunjukkan kepatuhan terhadap prinsip kerja.',stem:'Saya merasa penting menyampaikan kondisi sebenarnya dalam laporan walaupun informasi tersebut dapat memunculkan evaluasi tambahan.'},
+{id:32,dim:'Stabilitas Emosi',flag:'FG',key:4,explanation:'Menunjukkan kemampuan mengelola frustrasi.',stem:'Saat hasil kerja saya dikritik secara detail, saya lebih fokus memperbaiki kekurangan dibanding memikirkan nada penyampaiannya.'},
+{id:33,dim:'Loyalitas Institusi',flag:'RV',key:1,explanation:'Membuka konflik internal ke publik dapat menjadi indikator risiko.',stem:'Menurut saya, membagikan kekecewaan terhadap institusi di media sosial pribadi kadang diperlukan agar pihak tertentu merasa ditekan.'},
+{id:34,dim:'Persistensi Kerja',flag:'FG',key:5,explanation:'Menunjukkan orientasi penyelesaian tugas.',stem:'Ketika menghadapi target yang terlihat sulit dicapai, saya biasanya memecah pekerjaan menjadi langkah kecil agar tetap bergerak maju.'},
+{id:35,dim:'Pengendalian Diri',flag:'FG',key:4,explanation:'Mencerminkan kontrol perilaku interpersonal.',stem:'Saya berusaha menahan diri untuk tidak langsung membalas komentar yang memancing emosi di lingkungan kerja.'},
+{id:36,dim:'Kerja Sama Tim',flag:'RV',key:2,explanation:'Persaingan interpersonal berlebihan dapat menghambat kolaborasi.',stem:'Saya kadang kurang nyaman membantu rekan kerja jika hal tersebut membuat kontribusi saya terlihat tidak menonjol.'},
+{id:37,dim:'Tanggung Jawab',flag:'FG',key:5,explanation:'Menggambarkan kedisiplinan terhadap kewajiban kerja.',stem:'Walaupun tidak ada evaluasi langsung dari pimpinan, saya tetap mencoba menjaga kualitas pekerjaan dengan baik.'},
+{id:38,dim:'Adaptasi Tekanan',flag:'FG',key:4,explanation:'Menunjukkan toleransi terhadap tekanan target.',stem:'Saat menghadapi peningkatan beban kerja, saya mencoba mempertahankan rutinitas kerja agar tetap stabil.'},
+{id:39,dim:'Profesionalisme',flag:'FG',key:5,explanation:'Mencerminkan kesadaran menjaga batas profesional.',stem:'Saya berusaha memisahkan konflik pribadi dari keputusan profesional agar penilaian tetap objektif.'},
+{id:40,dim:'Kontrol Impuls',flag:'RV',key:1,explanation:'Impulsivitas dalam relasi kerja dapat meningkatkan risiko konflik.',stem:'Ketika merasa diperlakukan tidak adil, saya kadang sengaja memperlambat respons sebagai bentuk kekesalan tersembunyi.'},
+{id:41,dim:'Konsistensi Sikap',flag:'FG',key:4,explanation:'Menunjukkan kestabilan orientasi kerja.',stem:'Saya tetap mencoba bersikap profesional kepada orang yang pernah berbeda pendapat dengan saya.'},
+{id:42,dim:'Ketahanan Mental',flag:'FG',key:5,explanation:'Menggambarkan ketahanan menghadapi dinamika organisasi.',stem:'Dalam situasi kerja yang penuh ketidakpastian, saya biasanya fokus pada langkah praktis yang masih dapat dilakukan.'},
+{id:43,dim:'Integritas Operasional',flag:'RV',key:1,explanation:'Normalisasi kompromi etik kecil perlu dicermati.',stem:'Menurut saya, sedikit menyesuaikan data kehadiran demi menjaga hubungan baik dengan rekan tertentu bukan masalah besar.'},
+{id:44,dim:'Stabilitas Emosi',flag:'FG',key:4,explanation:'Menunjukkan kemampuan regulasi emosi.',stem:'Ketika menerima komentar tajam dalam rapat, saya biasanya mencoba memahami konteksnya sebelum memberikan reaksi.'},
+{id:45,dim:'Loyalitas Institusi',flag:'FG',key:4,explanation:'Menunjukkan kesediaan menjaga kepentingan bersama.',stem:'Saya tetap berupaya menjaga hubungan profesional dengan institusi walaupun pernah mengalami pengalaman kerja yang kurang menyenangkan.'},
+{id:46,dim:'Persistensi Kerja',flag:'RV',key:2,explanation:'Penghindaran tugas sulit menunjukkan persistensi rendah.',stem:'Jika pekerjaan terlihat terlalu sulit sementara tidak ada pengawasan langsung, saya kadang menundanya lebih lama dari seharusnya.'},
+{id:47,dim:'Pengendalian Diri',flag:'FG',key:5,explanation:'Mencerminkan pengelolaan respons dalam konflik.',stem:'Ketika berada dalam situasi konflik, saya berusaha menjaga nada bicara tetap terkendali agar masalah tidak semakin melebar.'},
+{id:48,dim:'Kerja Sama Tim',flag:'FG',key:4,explanation:'Menunjukkan kemampuan membangun koordinasi.',stem:'Saya dapat menerima perbedaan pendapat dalam tim tanpa harus memaksakan pandangan pribadi.'},
+{id:49,dim:'Tanggung Jawab',flag:'RV',key:2,explanation:'Melepas akuntabilitas menunjukkan tanggung jawab rendah.',stem:'Menurut saya, selama hasil akhir tim tetap baik, detail proses kerja pribadi tidak terlalu penting untuk dievaluasi.'},
+{id:50,dim:'Konsistensi Sikap',flag:'CONS',key:5,explanation:'Digunakan untuk memeriksa konsistensi pola jawaban.',stem:'Baik saat diawasi maupun tidak, saya berusaha mempertahankan standar perilaku kerja yang relatif sama.'}
+];
+
+const likertScale=[
+{val:1,text:'Sangat Tidak Sesuai'},
+{val:2,text:'Tidak Sesuai'},
+{val:3,text:'Ragu-ragu'},
+{val:4,text:'Sesuai'},
+{val:5,text:'Sangat Sesuai'}
+];
+
+let activeQuestions=[];
+let currentIdx=0;
+let userAnswers={};
+let timer=2700;
+let violationCount=0;
+let blurCount=0;
+let rapidAnswerCount=0;
+let answerTimestamps=[];
+let timerInterval;
+
+function startAssessment(){
+preventReloadExit();
+startBehaviorMonitoring();
+loadAutosave();
+const name=document.getElementById('student-name').value.trim();
+if(!name)return alert('Masukkan nama peserta');
+document.getElementById('meta-name').innerText=name.toUpperCase();
+activeQuestions=[...masterData].sort(()=>Math.random()-0.5);
+document.getElementById('login-screen').style.display='none';
+document.getElementById('main-cat-screen').style.display='flex';
+buildNavGrid();
+renderQuestion();
+startTimer();
+}
+
+function startTimer(){
+timerInterval=setInterval(()=>{
+timer--;
+let m=Math.floor(timer/60).toString().padStart(2,'0');
+let s=(timer%60).toString().padStart(2,'0');
+document.getElementById('timer-box').innerText=`${m}:${s}`;
+if(timer<=0){clearInterval(timerInterval);evaluateAndSubmit();}
+},1000);
+}
+
+function renderQuestion(){
+const q=activeQuestions[currentIdx];
+document.getElementById('current-q-num').innerText=`Pernyataan ${currentIdx+1} dari ${activeQuestions.length}`;
+document.getElementById('dimensi-badge').innerText=q.dim;
+document.getElementById('stem-container').innerText=q.stem;
+const wrapper=document.getElementById('options-wrapper');
+wrapper.innerHTML='';
+const shuffled=[...likertScale].sort(()=>Math.random()-.5);
+shuffled.forEach(scale=>{
+const opt=document.createElement('div');
+opt.className=`likert-option ${userAnswers[q.id]===scale.val?'selected':''}`;
+opt.innerHTML=`<div class='scale-num'>${scale.val}</div><div class='scale-text'>${scale.text}</div>`;
+opt.onclick=()=>selectScaleValue(q.id,scale.val);
+wrapper.appendChild(opt);
+});
+updateProgress();
+}
+
+function selectScaleValue(qId,val){
+const now=Date.now();
+answerTimestamps.push(now);
+if(answerTimestamps.length>1){
+const delta=now-answerTimestamps[answerTimestamps.length-2];
+if(delta<800) rapidAnswerCount++;
+}
+localStorage.setItem('pmk_autosave',JSON.stringify(userAnswers));
+userAnswers[qId]=val;
+syncNavGridState();
+renderQuestion();
+setTimeout(()=>{
+if(currentIdx<activeQuestions.length-1){currentIdx++;renderQuestion();}
+},180);
+}
+
+function buildNavGrid(){
+const grid=document.getElementById('nav-grid');
+grid.innerHTML='';
+activeQuestions.forEach((q,idx)=>{
+const dot=document.createElement('div');
+dot.className='nav-dot';
+dot.id=`nav-${idx}`;
+dot.innerText=idx+1;
+dot.onclick=()=>{currentIdx=idx;renderQuestion();syncNavGridState();};
+grid.appendChild(dot);
+});
+syncNavGridState();
+}
+
+function syncNavGridState(){
+let answered=0;
+activeQuestions.forEach((q,idx)=>{
+const el=document.getElementById(`nav-${idx}`);
+el.className='nav-dot';
+if(idx===currentIdx)el.classList.add('current');
+if(userAnswers[q.id]){el.classList.add('filled');answered++;}
+});
+document.getElementById('answeredCount').innerText=answered;
+}
+
+function updateProgress(){
+const answered=Object.keys(userAnswers).length;
+document.getElementById('progress-bar').style.width=`${(answered/50)*100}%`;
+}
+
+function prevQuestion(){if(currentIdx>0){currentIdx--;renderQuestion();syncNavGridState();}}
+function nextQuestion(){if(currentIdx<49){currentIdx++;renderQuestion();syncNavGridState();}}
+
+function triggerDirectSubmit(){
+if(Object.keys(userAnswers).length<50){
+if(!confirm('Masih ada item yang belum dijawab. Lanjut proses hasil?')) return;
+}
+evaluateAndSubmit();
+}
+
+function evaluateAndSubmit(){
+// Behavioral validity simulation layer
+let responseTimes=[];
+let hiddenRiskIndex=0;
+let defensivePattern=0;
+let adaptiveConsistency=0;
+clearInterval(timerInterval);
+let total=0;
+let dimensi={};
+let redFlags=[];
+let consistency=[];
+let review='';
+
+activeQuestions.forEach((q,idx)=>{
+let ans=userAnswers[q.id]||3;
+let score=q.key>=4?ans:(6-ans);
+if(q.flag==='RV'||q.flag==='RF')score=6-ans;
+if(q.flag==='RF'&&ans>=4){redFlags.push(q.id);hiddenRiskIndex+=2;}
+if(q.flag==='FG'&&ans>=4)adaptiveConsistency++;
+if(q.flag==='RV'&&ans>=4)defensivePattern++;
+if(!dimensi[q.dim])dimensi[q.dim]=[];
+dimensi[q.dim].push(score);
+total+=score;
+const ideal=q.key;
+review+=`<div class='review-card'>
+<b>Soal ${idx+1}</b><br><br>
+<div><b>Soal:</b> ${q.stem}</div>
+<div style='margin-top:6px'><b>Jawaban Anda:</b> ${likertScale.find(l=>l.val===ans)?.text || ans}</div>
+<div><b>Jawaban Ideal:</b> ${likertScale.find(l=>l.val===ideal)?.text || ideal}</div>
+<div><b>Pembahasan:</b> ${q.explanation}</div>
+<div><b>Skor:</b> ${score}/5</div>
+</div>`;
+});
+
+if(Math.abs((userAnswers[11]||3)-(userAnswers[50]||3))>=3){
+consistency.push('Terdapat perbedaan signifikan pada item perilaku konsistensi kerja.');
+}
+
+let dimHTML=`
+<div class='review-card' style='padding:15px'>
+<table style='width:100%;border-collapse:collapse;font-size:.88rem'>
+<thead>
+<tr style='background:var(--primary);color:var(--accent)'>
+<th style='padding:6px 8px;border:1px solid #E2E8F0;text-align:left'>Dimensi</th>
+<th style='padding:6px 8px;border:1px solid #E2E8F0'>Rata-rata</th>
+<th style='padding:6px 8px;border:1px solid #E2E8F0'>Kategori</th>
+</tr>
+</thead>
+<tbody>`;
+Object.keys(dimensi).forEach(d=>{
+let avg=(dimensi[d].reduce((a,b)=>a+b,0)/dimensi[d].length).toFixed(1);
+let cat=avg>=4?'Adaptif':avg>=3?'Cukup Stabil':'Perlu Evaluasi';
+dimHTML+=`
+<tr>
+<td style='padding:6px 8px;border:1px solid #E2E8F0'>${d}</td>
+<td style='padding:6px 8px;border:1px solid #E2E8F0;text-align:center'>${avg}</td>
+<td style='padding:6px 8px;border:1px solid #E2E8F0;text-align:center'>${cat}</td>
+</tr>`;
+});
+dimHTML+=`</tbody></table></div>`;
+
+let extra=`<div class='review-card' style='max-width:780px;margin:0 auto 15px auto'><b>Indikator Red Flag:</b><br>${redFlags.length?redFlags.join(', '):'Tidak terdeteksi indikator dominan.'}</div>`;
+extra+=`<div class='review-card' style='max-width:780px;margin:0 auto 15px auto'><b>Catatan Konsistensi Jawaban:</b><br>${consistency.length?consistency.join('<br>'):'Respons relatif konsisten.'}</div>`;
+extra+=`<div class='review-card' style='max-width:780px;margin:0 auto 15px auto'>
+<b>Audit Aktivitas Peserta</b><br>
+Deteksi perpindahan tab: ${blurCount}<br>
+Indikasi jawaban terlalu cepat: ${rapidAnswerCount}<br>
+Indeks pelanggaran sesi: ${violationCount}
+</div>`;
+
+let pct=((total/250)*100).toFixed(0);
+let profileStatus='STABIL';
+if(hiddenRiskIndex>=4||defensivePattern>=8) profileStatus='PERLU OBSERVASI LANJUT';
+if(hiddenRiskIndex>=8) profileStatus='INDIKATOR RISIKO MENINGKAT';
+document.getElementById('main-cat-screen').style.display='none';
+document.getElementById('result-screen').style.display='block';
+document.getElementById('res-name').innerHTML=`LAPORAN PROFIL PERILAKU PROFESIONAL<br><span style='font-size:1rem'>${document.getElementById('student-name').value.toUpperCase()} • ${pct}%</span><br><span style='font-size:.9rem;color:var(--accent)'>STATUS PROFIL: ${profileStatus}</span>`;
+document.getElementById('dimensi-score-list').innerHTML=dimHTML+extra;
+document.getElementById('review-list').innerHTML=review;
+window.scrollTo(0,0);
+}
+
+function activateFullscreen(){
+const el=document.documentElement;
+if(el.requestFullscreen){el.requestFullscreen();}
+}
+
+function preventReloadExit(){
+window.onbeforeunload=function(){return 'Sistem asesmen masih berjalan';}
+window.addEventListener('keydown',function(e){
+if(e.key==='F5'||(e.ctrlKey&&e.key==='r')){
+e.preventDefault();
+}
+});
+}
+
+function startBehaviorMonitoring(){
+document.addEventListener('visibilitychange',()=>{
+if(document.hidden){
+blurCount++;
+violationCount++;
+}
+});
+window.addEventListener('blur',()=>{
+blurCount++;
+});
+}
+
+function loadAutosave(){
+const saved=localStorage.getItem('pmk_autosave');
+if(saved){
+try{userAnswers=JSON.parse(saved)||{};}catch(e){}
+}
+}
+
+function downloadResult(){
+const content=document.getElementById('result-screen').innerHTML;
+const win=window.open('','','width=1200,height=900');
+win.document.write(`
+<html>
+<head>
+<title>Hasil PMK Personality Inventory</title>
+<style>
+body{font-family:Segoe UI;padding:30px;background:#f5f5f5;color:#111}
+.review-card{background:#fff;padding:15px;margin-bottom:15px;border-left:5px solid #0A1128;border-radius:6px}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ccc;padding:10px}
+th{background:#0A1128;color:#C5A880}
+button{display:none}
+</style>
+</head>
+<body>${content}</body>
+</html>`);
+win.document.close();
+setTimeout(()=>{win.print();},700);
+}
+</script>
+</body>
+</html>
+```

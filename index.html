@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TRYOUT SIMULASI CAT AMI & PMK</title>
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#fcfbf7; /* Kombinasi Soft Cream/Off-white */
+min-height:100vh;
+overflow-x:hidden;
+color:#1a1a1a; /* Hitam Solid Lembut */
+}
+
+.hidden{
+display:none !important;
+}
+
+#loadingScreen{
+position:fixed;
+inset:0;
+background:#ffffff;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.loader{
+width:60px;
+height:60px;
+border-radius:50%;
+border:5px solid rgba(26,26,26,.1);
+border-top:5px solid #1a1a1a;
+animation:spin .8s linear infinite;
+margin-bottom:18px;
+}
+
+@keyframes spin{
+100%{ transform:rotate(360deg); }
+}
+
+.center-page{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.glass{
+background:#ffffff;
+border:1px solid #e5e5e0;
+box-shadow:0 10px 30px -5px rgba(0,0,0,.05);
+}
+
+.login-card{
+width:100%;
+max-width:450px;
+padding:40px;
+border-radius:25px;
+text-align:center;
+animation:fade .5s ease;
+}
+
+@keyframes fade{
+from{ opacity:0; transform:translateY(20px); }
+to{ opacity:1; transform:translateY(0); }
+}
+
+.login-card h1{
+font-size:24px;
+margin-bottom:12px;
+color:#1a1a1a;
+font-weight:600;
+line-height:1.3;
+}
+
+.subtitle{
+opacity:.7;
+margin-bottom:30px;
+color:#1a1a1a;
+letter-spacing:1px;
+font-weight:500;
+font-size:14px;
+}
+
+input{
+width:100%;
+padding:15px;
+border:1px solid #e5e5e0;
+outline:none;
+border-radius:14px;
+margin-bottom:20px;
+font-size:15px;
+background:#fdfcf9;
+color:#1a1a1a;
+text-align:center;
+}
+
+input:focus{
+border-color:#1a1a1a;
+background:#ffffff;
+}
+
+button{
+border:none;
+cursor:pointer;
+transition:.3s;
+}
+
+.login-btn{
+width:100%;
+padding:15px;
+background:#1a1a1a;
+color:#ffffff;
+border-radius:14px;
+font-size:16px;
+font-weight:600;
+letter-spacing:0.5px;
+}
+
+.login-btn:hover{
+transform:translateY(-3px);
+background:#333333;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+#dashboard{
+padding:30px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin-bottom:30px;
+border-bottom:2px solid #e5e5e0;
+padding-bottom:20px;
+}
+
+.top-right{
+display:flex;
+align-items:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.count-box{
+padding:15px 20px;
+border-radius:15px;
+background:#f4f1ea;
+color:#1a1a1a;
+font-weight:600;
+border:1px solid #e5e5e0;
+}
+
+.logout-btn{
+padding:14px 20px;
+background:#1a1a1a;
+color:white;
+border-radius:12px;
+font-weight:500;
+}
+
+.logout-btn:hover{
+background:#f44336;
+}
+
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.menu-card{
+padding:35px 20px;
+border-radius:22px;
+text-align:center;
+font-weight:600;
+font-size:16px;
+cursor:pointer;
+transition:.25s;
+background:#ffffff;
+border:1px solid #e5e5e0;
+color:#1a1a1a;
+box-shadow:0 4px 15px rgba(0,0,0,.02);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:5px;
+}
+
+.menu-card small{
+font-size:11px;
+color:#777777;
+letter-spacing:.5px;
+text-transform:uppercase;
+font-weight:400;
+margin-top:4px;
+}
+
+.menu-card:hover{
+transform:translateY(-5px);
+background:#fdfcf9;
+border-color:#1a1a1a;
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+}
+
+.menu-card.pdf-card {
+background:#fbf9f3;
+border-color:#dcd8cd;
+}
+
+.popup{
+position:fixed;
+top:30px;
+right:30px;
+background:#1a1a1a;
+color:white;
+padding:18px 24px;
+border-left:5px solid #dcd8cd;
+border-radius:14px;
+z-index:9999;
+}
+
+footer{
+text-align:center;
+padding:40px 30px;
+color:#777777;
+font-size:14px;
+border-top:1px solid #e5e5e0;
+margin-top:40px;
+}
+
+@media(max-width:768px){
+.login-card{ padding:30px 22px; }
+.login-card h1{ font-size:20px; }
+#dashboard{ padding:20px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loadingScreen" style="display: none;">
+<div class="loader"></div>
+<h3 style="color:#1a1a1a;font-weight:600;">Menghubungkan ke Sistem...</h3>
+</div>
+
+<section id="loginPage" class="center-page">
+<div class="glass login-card">
+<h1>TRYOUT SIMULASI CAT<br>AMI & PMK</h1>
+<p class="subtitle">PERSONA RESEARCH & CONSULTING</p>
+<input type="password" id="passwordInput" placeholder="Masukkan Password">
+<button class="login-btn" id="loginBtn">LOGIN</button>
+</div>
+</section>
+
+<section id="dashboard" class="hidden">
+<div class="topbar">
+<div>
+<h2>TRYOUT MENU – PAKET SELEKSI</h2>
+<p id="welcomeText" style="color:#777777;margin-top:4px;"></p>
+</div>
+<div class="top-right">
+<div class="count-box" id="countdown">Loading...</div>
+<button class="logout-btn" id="logoutBtn">Logout</button>
+</div>
+</div>
+
+<div class="menu-grid">
+<div class="menu-card pdf-card" data-link="Buku_Saku_AMI_PMK_Revisi_Final.pdf">
+<span>📖 BUKU SAKU AMI & PMK</span>
+<small>Panduan Strategi & Teori Dasar</small>
+</div>
+<div class="menu-card" data-link="ami_1.html">
+<span>ASESMEN MENTAL IDEOLOGI 1</span>
+<small>Evaluasi & Wawasan Kebangsaan</small>
+</div>
+<div class="menu-card" data-link="ami_3.html">
+<span>ASESMEN MENTAL IDEOLOGI 3</span>
+<small>Pendalaman Prinsip & Doktrin</small>
+</div>
+<div class="menu-card" data-link="ami_pmk.html">
+<span>INTEGRASI AMI & PMK STRATEGI</span>
+<small>Kombinasi Karakter & Ideologi</small>
+</div>
+<div class="menu-card" data-link="ami_pmk_b.html">
+<span>INTEGRASI AMI & PMK PAKET B</span>
+<small>Simulasi Penguatan Mental Khusus</small>
+</div>
+<div class="menu-card" data-link="pmk_1.html">
+<span>PMK PERSONALITY INVENTORY 1</span>
+<small>Aspek Loyalitas & Integritas Diri</small>
+</div>
+<div class="menu-card" data-link="pmk_2.html">
+<span>PMK PERSONALITY INVENTORY 2</span>
+<small>Aspek Penyesuaian Sosial & Konflik</small>
+</div>
+<div class="menu-card" data-link="stj_ami_pmk_1.html">
+<span>SITUATIONAL JUDGEMENT TEST 1</span>
+<small>Studi Kasus & Dilema Keputusan</small>
+</div>
+<div class="menu-card" data-link="stj_ami_pmk_2.html">
+<span>SITUATIONAL JUDGEMENT TEST 2</span>
+<small>Validasi Konsistensi Sikap Mental</small>
+</div>
+</div>
+</section>
+
+<div id="popup" class="popup hidden"></div>
+
+<footer>
+© PERSONA RESEARCH & CONSULTING
+</footer>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXC1m2C3j5RyBg9uNNjdcB7WZpSntBT_F_AcOv0mtfluMdxLhHyCp4N3pQi8mEeuZy/exec";
+
+// Kumpulan 50 Password dengan struktur kata 'PRC' berada di TENGAH sandi
+const passwordList = [
+"A7B9PRCX1N", "K2W5PRCY7M", "M9R3PRCZ4L", "X8Q1PRCB2K", "L4P7PRCV9J",
+"J3N6PRCH5H", "H5T2PRCF3G", "V1Z8PRCD9F", "F6Y3PRCB4D", "D2G9PRCN1B",
+"B4X7PRCP9V", "N1V8PRCR3K", "P9K2PRCT5M", "R3M6PRCZ8J", "T5J2PRCY3W",
+"Z8W1PRCG9F", "Y3F6PRCC4D", "G9D2PRCW1X", "C4X8PRCQ8V", "W1V7PRCL2R",
+"Q8R3PRCK6P", "L2P9PRCJ7M", "K6M4PRCH2N", "J7N3PRCF9T", "H2T5PRCD4Y",
+"F9Y1PRCB8G", "D4G6PRCN3X", "B8X2PRCP1V", "N3V9PRCS5K", "P1K7PRCU9A",
+"S5A2PRCC3E", "U9E1PRCE8H", "C3H7PRCG4T", "E8T2PRCL9W", "G4W6PRCX2K",
+"L9K1PRCM5Y", "X2Y7PRCR8N", "M5N3PRCV3P", "R8P4PRCF1Z", "V3Z9PRCD9B",
+"F1B7PRCJ4H", "D9H2PRCT2K", "J4K6PRCQ5W", "T2W8PRCA3M", "Q5M1PRCN7B",
+"A3B9PRCK4P", "N7P2PRCR1X", "K4X8PRCH9Z", "R1Z7PRCF3F", "H9F3PRCB2D"
+];
+
+const loginBtn = document.getElementById("loginBtn");
+const passwordInput = document.getElementById("passwordInput");
+const loginPage = document.getElementById("loginPage");
+const dashboard = document.getElementById("dashboard");
+const popup = document.getElementById("popup");
+const welcomeText = document.getElementById("welcomeText");
+const countdown = document.getElementById("countdown");
+const loadingScreen = document.getElementById("loadingScreen");
+
+function getDeviceId(){
+const rawData = [
+navigator.userAgent, navigator.platform, navigator.language,
+screen.width, screen.height, window.devicePixelRatio,
+Intl.DateTimeFormat().resolvedOptions().timeZone,
+navigator.hardwareConcurrency || "cpu"
+].join("###");
+return generateHash(rawData);
+}
+
+function generateHash(str){
+let hash = 0;
+for(let i=0;i<str.length;i++){
+hash=((hash<<5)-hash)+str.charCodeAt(i);
+hash|=0;
+}
+return "PRC-"+Math.abs(hash);
+}
+
+function showPopup(text){
+popup.innerText=text;
+popup.classList.remove("hidden");
+setTimeout(()=>{ popup.classList.add("hidden"); },2500);
+}
+
+loginBtn.addEventListener("click",loginSystem);
+
+async function loginSystem(){
+const input = passwordInput.value.trim();
+if(!passwordList.includes(input)){
+showPopup("Password salah.");
+return;
+}
+
+loadingScreen.style.display = "flex";
+const deviceId = getDeviceId();
+
+try {
+const response = await fetch(`${SCRIPT_URL}?password=${input}&deviceId=${deviceId}`);
+const result = await response.json();
+
+if(result.status === "success"){
+localStorage.setItem("loggedInUser", input);
+localStorage.setItem("userFirstLogin", result.firstLogin);
+showPopup("Login berhasil.");
+openDashboard(input, result.firstLogin);
+} else {
+showPopup(result.message);
+loadingScreen.style.display = "none";
+}
+} catch (error) {
+showPopup("Gagal sinkronisasi data online. Pastikan Web App Script aktif.");
+loadingScreen.style.display = "none";
+}
+}
+
+function openDashboard(user, firstLoginTime){
+loginPage.classList.add("hidden");
+dashboard.classList.remove("hidden");
+loadingScreen.style.display = "none";
+welcomeText.innerHTML=`Login sebagai: <b>${user}</b>`;
+startCountdown(Number(firstLoginTime));
+}
+
+let countdownInterval=null;
+function startCountdown(firstLoginTime){
+clearInterval(countdownInterval);
+countdownInterval=setInterval(()=>{
+const end = firstLoginTime + (30*24*60*60*1000);
+const diff = end - Date.now();
+
+if(diff <= 0){
+countdown.innerText="Expired";
+clearInterval(countdownInterval);
+localStorage.clear();
+setTimeout(()=>{ location.reload(); }, 2000);
+return;
+}
+
+const days=Math.floor(diff/(1000*60*60*24));
+const hours=Math.floor((diff/(1000*60*60))%24);
+const minutes=Math.floor((diff/(1000*60))%60);
+countdown.innerText=`${days}H ${hours}J ${minutes}M`;
+},1000);
+}
+
+const loggedUser = localStorage.getItem("loggedInUser");
+const localFirstLogin = localStorage.getItem("userFirstLogin");
+if(loggedUser && localFirstLogin && passwordList.includes(loggedUser)){
+openDashboard(loggedUser, localFirstLogin);
+}
+
+document.getElementById("logoutBtn").addEventListener("click",()=>{
+localStorage.clear();
+location.reload();
+});
+
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&e.key==="I")||(e.ctrlKey&&e.key==="u")){
+e.preventDefault();
+}
+});
+
+document.querySelectorAll(".menu-card").forEach(card=>{
+card.addEventListener("click",()=>{
+const target=card.getAttribute("data-link");
+if(target) window.location.href=target;
+});
+});
+</script>
+</body>
+</html>

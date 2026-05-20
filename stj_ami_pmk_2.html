@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>EVALUASI ASESMEN MENTAL IDEOLOGI & PMK — PERSONA RESEARCH & CONSULTING</title>
+    <style>
+        :root { 
+            --primary: #0A1128; 
+            --deep-space: #1C2541;
+            --accent: #C5A880; 
+            --bg: #F1F5F9; 
+            --white: #FFFFFF; 
+            --success: #27AE60; 
+            --danger: #E74C3C; 
+            --premium-gray: #64748B;
+            --border: #CBD5E1;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+        
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--primary);
+        }
+        
+        header { 
+            background: var(--primary); 
+            color: var(--accent); 
+            padding: 10px; 
+            text-align: center; 
+            border-bottom: 2px solid var(--accent); 
+            font-weight: 700; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+        }
+        
+        #login-screen, #main-cat-screen, #result-screen {
+            width: 100%;
+            max-width: 880px; 
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        #login-screen {
+            max-width: 440px;
+            padding-top: 10vh;
+        }
+        
+        .login-card { 
+            background: var(--white); 
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 20px rgba(10, 17, 40, 0.05); 
+            text-align: center; 
+            border-top: 4px solid var(--accent);
+        }
+        
+        .brand-title { color: var(--primary); font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+        .brand-sub { color: var(--premium-gray); font-size: 0.75rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; }
+        
+        input[type="text"] { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1.5px solid var(--border); 
+            border-radius: 6px; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            text-align: center;
+            outline: none;
+            background: #F8FAFC;
+        }
+        
+        button { 
+            background: var(--primary); 
+            color: var(--accent); 
+            border: 1.5px solid var(--accent); 
+            padding: 10px 20px; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+        }
+        button:hover { background: var(--accent); color: var(--primary); }
+        
+        .panel-question { 
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
+            border-top: 4px solid var(--primary);
+        }
+        
+        .question-meta { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 700; 
+            font-size: 0.75rem; 
+            color: var(--premium-gray); 
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .top-timer-badge {
+            background: #FFF0F0;
+            color: var(--danger);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+        
+        .question-text { 
+            font-size: 0.98rem; 
+            font-weight: 600; 
+            line-height: 1.5; 
+            text-align: justify; 
+            margin-bottom: 18px;
+        }
+        
+        .sjt-options-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* Dipersempit agar hemat ruang */
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .sjt-option-item {
+            display: flex;
+            align-items: flex-start;
+            background: #F8FAFC;
+            padding: 10px 14px; /* Padding dipangkas rapi */
+            border-radius: 6px;
+            border: 1.5px solid #E2E8F0;
+            cursor: pointer;
+        }
+        .sjt-option-item:hover { border-color: var(--accent); background: #FFFDF9; }
+        
+        .sjt-option-item input[type="radio"] {
+            margin-top: 2px;
+            margin-right: 10px;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .sjt-option-text { font-size: 0.88rem; font-weight: 600; color: #334155; line-height: 1.4; }
+        .sjt-option-item.selected { border-color: var(--primary); background: #F1F5F9; }
+        
+        .nav-buttons { 
+            display: flex; 
+            justify-content: space-between; 
+            border-top: 1px solid #E2E8F0;
+            padding-top: 15px;
+        }
+        .btn-nav { padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; }
+        
+        .panel-bottom-navigation {
+            background: var(--white);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .grid-map { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); /* Diperkecil agar hemat ruang */
+            gap: 6px; /* Jarak antar nomor dipangkas dekat */
+        }
+        
+        .grid-item { 
+            background: #F1F5F9; 
+            border: 1px solid #CBD5E1; 
+            color: #475569; 
+            height: 34px; /* Tinggi kotak diturunkan */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700; 
+            font-size: 0.78rem; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        .grid-item.answered { background: var(--primary); border-color: var(--primary); color: var(--accent); }
+        .grid-item.current { border-color: var(--accent); background: #FFFDF9; color: var(--primary); box-shadow: 0 0 4px rgba(197,168,128,0.3); }
+        
+        .sidebar-meta { font-size: 0.7rem; font-weight: 700; color: var(--premium-gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .score-box { padding: 12px; border-radius: 6px; font-weight: 800; font-size: 0.85rem; text-align: center; }
+        
+        /* REVISI REVIEW CARD JAUH LEBIH RAPAT & PADAT */
+        .review-card { 
+            background: white; 
+            padding: 12px 16px; 
+            border-radius: 6px; 
+            margin-bottom: 8px; /* Jarak antar lembar pembahasan sangat dekat */
+            border-left: 4px solid #CBD5E1; 
+            text-align: left; 
+            font-size: 0.88rem;
+        }
+        .review-meta { font-size: 0.68rem; font-weight: 700; color: var(--premium-gray); margin-top: 4px; text-transform: uppercase; }
+        .review-section-title { font-weight: 700; margin-top: 6px; font-size: 0.82rem; }
+
+        .dimension-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+        .dimension-table th { background: var(--primary); color: var(--accent); text-align: left; padding: 8px; font-weight: 700; }
+        .dimension-table td { padding: 8px; border-bottom: 1px solid #E2E8F0; font-weight: 600; }
+        .badge-dim-status { padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; font-weight: 700; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <header>PRC Portal — Simulasi CAT ASESMEN Mental Ideologi & PMK (Seri B)</header>
+
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="brand-title">ASESMEN MENTAL IDEOLOGI & PMK</div>
+            <div class="brand-sub">SIMULASI EVALUASI INTEGRITAS KEBANGSAAN — SERI B</div>
+            <input id="student-name" placeholder="NAMA LENGKAP" type="text" autocomplete="off"/>
+            <button onclick="startExam()" style="width: 100%;">Mulai Simulasi CAT Seri B</button>
+        </div>
+    </div>
+
+    <div id="main-cat-screen" style="display: none;">
+        <div class="panel-question" id="question-block">
+            <div class="question-meta">
+                <span id="txt-number">KASUS 01 DARI 25</span>
+                <span id="txt-dimensi" style="color: var(--accent); margin-right: auto; margin-left: 15px;">ASPEK: -</span>
+                <div id="txt-timer" class="top-timer-badge">50:00</div>
+            </div>
+            
+            <div class="question-text" id="txt-stem">-</div>
+            
+            <div id="options-container" class="sjt-options-vertical">
+                </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-nav" onclick="prevQuestion()">Sebelumnya</button>
+                <button id="btn-next" class="btn-nav" onclick="nextQuestion()">Selanjutnya</button>
+            </div>
+        </div>
+        
+        <div class="panel-bottom-navigation">
+            <div class="sidebar-meta">Peta Alur Soal Kebangsaan (Seri B)</div>
+            <div id="grid-map-area" class="grid-map"></div>
+        </div>
+    </div>
+
+    <div id="result-screen" style="display: none;">
+        <h2 id="res-name" style="font-size: 1.15rem; margin-bottom: 2px;">NAMA CALON SISWA: -</h2>
+        <div style="color: var(--premium-gray); font-weight: 700; text-transform: uppercase; font-size:0.7rem; letter-spacing: 0.5px; margin-bottom: 15px;">
+            Persona Research & Consulting
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+            <div class="score-box" style="background: var(--primary); color: var(--accent); min-width: 180px; flex: 1;">
+                INDEKS WAWASAN KEBANGSAAN<br>
+                <b id="res-skor-akhir" style="font-size: 1.8rem;">0</b>
+            </div>
+            <div id="red-flag-box" class="score-box" style="background: #FFF3CD; color: #856404; border: 1px solid #FFEBAA; min-width: 180px; flex: 1; display: none;">
+                ⚠️ CATATAN KHUSUS EVALUATOR<br>
+                <b style="font-size: 0.8rem; color: #856404; text-transform: uppercase; display: block; margin-top: 4px;">Terindikasi Kontra-Ideologi Negara</b>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 15px; border-radius: 8px; border-top: 4px solid var(--primary); margin-bottom: 15px;">
+            <table class="dimension-table">
+                <thead>
+                    <tr>
+                        <th>KRITERIA</th>
+                        <th>Nilai Capaian</th>
+                        <th>Kategori Kemampuan</th>
+                    </tr>
+                </thead>
+                <tbody id="dimension-table-body"></tbody>
+            </table>
+        </div>
+
+        <div id="profil-kategori-box" style="background: white; padding: 15px; border-radius: 8px; border-top: 4px solid var(--accent); margin-bottom: 20px; font-size: 0.88rem;">
+            <div style="margin-bottom: 10px;">
+                <span style="font-weight: 700; color: var(--premium-gray); font-size: 0.72rem;">KLASIFIKASI UMUM:</span><br>
+                <span id="txt-kategori" style="font-size: 1rem; font-weight: 800;">-</span>
+            </div>
+            <div style="margin-bottom: 10px; background: #F8FAFC; padding: 10px; border-radius: 4px; border-left: 3px solid var(--primary);">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.72rem;">DESKRIPSI CARA PANDANG:</span><br>
+                <p id="txt-analisis" style="color: #334155; line-height: 1.4; text-align: justify; margin: 4px 0 0 0;">-</p>
+            </div>
+            <div>
+                <span style="font-weight: 700; color: var(--success); font-size: 0.72rem;">REKOMENDASI PENGEMBANGAN:</span><br>
+                <p id="txt-saran" style="color: #1E293B; line-height: 1.4; text-align: justify; margin: 4px 0 0 0;">-</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: left; color: var(--primary); font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; border-bottom: 1.5px solid var(--primary); padding-bottom: 4px;">
+            Lembar Koreksi Pilihan Respon Kasus (Seri B - Padat)
+        </h3>
+        <div id="review-list"></div>
+    </div>
+
+    <script>
+        // PENGAMAN AKTIF PERMANEN TANPA BATAS WAKTU KUNCI
+        window.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'a' || e.key === 'p') || e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        const sourceQuestions = [
+            {
+                id: 1, dim: "Pancasila", flag: "E",
+                stem: "Rekan kerja Anda berpendapat bahwa demi mempercepat kemajuan ekonomi daerah, kearifan lokal berlandaskan ketuhanan dan gotong royong boleh dikesampingkan asal iklim investasi asing masuk lancar. Sikap Anda...",
+                opts: {
+                    A: { txt: "Sangat setuju karena kemajuan materiil ekonomi adalah segalanya bagi daerah saat ini.", score: 1 },
+                    B: { txt: "Menolak pemikiran tersebut karena kemajuan ekonomi harus tetap berjalan beriringan tanpa mengorbankan nilai ketuhanan dan gotong royong Pancasila.", score: 5 },
+                    C: { txt: "Memilih diam dan tidak ikut campur urusan perdebatan teori ekonomi kebangsaan.", score: 3 },
+                    D: { txt: "Menyetujui sebagian saja asalkan investasi asing tersebut memberikan pembagian keuntungan yang besar.", score: 2 },
+                    E: { txt: "Menentang dengan keras di depan forum umum hingga memicu perkelahian personal antarrekan kerja.", score: 2 }
+                }
+            },
+            {
+                id: 2, dim: "UUD 1945", flag: "A",
+                stem: "Sebuah aksi demonstrasi kelompok massa di sekitar kantor Anda mulai mengarah pada tindakan anarkis dan merusak fasilitas publik dengan dalih menyuarakan hak konstitusional. Tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut bergabung mengamankan hak massa karena solidaritas kebebasan berpendapat.", score: 1 },
+                    B: { txt: "Tetap tenang, tidak terprovokasi, mengamankan dokumen kerja penting, dan mempercayakan penanganan penuh kepada aparat penegak hukum.", score: 5 },
+                    C: { txt: "Memotret jalannya kerusuhan lalu menyebarkannya dengan bumbu opini provokatif di grup chat.", score: 2 },
+                    D: { txt: "Menyalahkan aparat keamanan karena dianggap lambat membubarkan kerumunan massa.", score: 3 },
+                    E: { txt: "Menolak keluar ruangan kerja sama sekali bahkan setelah situasi dinyatakan aman kondusif.", score: 3 }
+                }
+            },
+            {
+                id: 3, dim: "NKRI & Bela Negara", flag: "E",
+                stem: "Saat ditugaskan di wilayah perbatasan, Anda menemukan oknum warga lokal sering membantu pelintas batas ilegal masuk wilayah NKRI tanpa pemeriksaan karena alasan kekerabatan adat masa lalu. Tindakan Anda adalah...",
+                opts: {
+                    A: { txt: "Membiarkannya karena menghormati nilai adat kebiasaan warga lokal perbatasan.", score: 2 },
+                    B: { txt: "Menindak tegas sesuai prosedur hukum pengamanan perbatasan negara dan memberikan edukasi bahwa kedaulatan wilayah NKRI berada di atas urusan personal.", score: 5 },
+                    C: { txt: "Meminta imbalan bagian keuntungan dari pelintas batas tersebut agar rahasianya terjaga aman.", score: 1 },
+                    D: { txt: "Melaporkan kasus tersebut secara berkala tanpa berani melakukan tindakan pengamanan langsung.", score: 4 },
+                    E: { txt: "Mengusir oknum warga tersebut dari desa perbatasan secara paksa tanpa koordinasi kepala desa.", score: 2 }
+                }
+            },
+            {
+                id: 4, dim: "Bersih Diri & Loyalitas", flag: "A",
+                stem: "Seorang senior di instansi tempat Anda mengabdi meminta Anda memberikan sandi akses sistem data internal organisasi dengan alasan darurat tugas luar, padahal hal tersebut melanggar SOP keamanan data. Sikap Anda...",
+                opts: {
+                    A: { txt: "Langsung memberikannya demi loyalitas hierarki senioritas dalam lingkungan tugas.", score: 1 },
+                    B: { txt: "Menolak secara sopan, menjelaskan batasan aturan SOP, dan menyarankan senior meminta izin resmi tertulis melalui kepala bagian.", score: 5 },
+                    C: { txt: "Memberikan sandi palsu agar senior tidak marah namun sistem data tetap aman.", score: 3 },
+                    D: { txt: "Mengabaikan permintaan senior tersebut dan pura-pura tidak mendengar perkataannya.", score: 2 },
+                    E: { txt: "Melaporkan senior tersebut ke provos intelijen atas dugaan sabotase organisasi.", score: 4 }
+                }
+            },
+            {
+                id: 5, dim: "Bhinneka Tunggal Ika", flag: "E",
+                stem: "Dalam penempatan tugas baru yang mayoritas masyarakatnya berbeda keyakinan dengan Anda, tokoh adat setempat meminta Anda ikut serta dalam prosesi ritual adat kultural kedamaian desa. Sikap Anda...",
+                opts: {
+                    A: { txt: "Menolak mentah-mentah karena menganggap kebudayaan lokal tersebut primitif.", score: 1 },
+                    B: { txt: "Hadir menghormati undangan sebagai bentuk toleransi sosial kebangsaan dengan tetap menjaga batasan akidah keyakinan pribadi.", score: 5 },
+                    C: { txt: "Pura-pura sakit agar memiliki alasan logis untuk menghindari interaksi sosial tersebut.", score: 3 },
+                    D: { txt: "Ikut serta sepenuhnya dalam seluruh ritual keagamaan mereka agar dianggap membaur total.", score: 2 },
+                    E: { txt: "Mengajak rekan-rekan sedaerah untuk melakukan protes massal terhadap aturan adat desa.", score: 2 }
+                }
+            },
+            {
+                id: 6, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Di era digital saat ini, peperangan tidak lagi menggunakan senjata fisik, melainkan perang asimetris berupa infiltrasi budaya menyimpang dan pelemahan karakter pemuda. Bentuk bela negara Anda yang paling utama adalah...",
+                opts: {
+                    A: { txt: "Menghapus semua akun media sosial agar terbebas dari pengaruh buruk dunia luar.", score: 2 },
+                    B: { txt: "Membangun kompetensi diri yang unggul, menyaring informasi secara ketat, dan konsisten memegang teguh identitas nasional kebangsaan.", score: 5 },
+                    C: { txt: "Menuntut pemerintah memblokir total akses internet dari luar negeri masuk Indonesia.", score: 1 },
+                    D: { txt: "Membeli produk lokal sesekali saja saat ada kampanye nasional berlangsung.", score: 3 },
+                    E: { txt: "Menyerahkan urusan pertahanan karakter pemuda sepenuhnya kepada lembaga pendidikan formal.", score: 2 }
+                }
+            },
+            {
+                id: 7, dim: "Pancasila", flag: "A",
+                stem: "Ketika merancang program kerja di lingkungan Anda, ada usulan yang menguntungkan kelompok ekonomi kuat namun berpotensi meminggirkan hak ekonomi warga kurang mampu. Sikap Anda sesuai Sila ke-5 Pancasila adalah...",
+                opts: {
+                    A: { txt: "Menerima usulan tersebut karena kelompok ekonomi kuat bisa menyumbang dana kas besar.", score: 1 },
+                    B: { txt: "Menolak tegas dan merumuskan ulang program agar memberikan asas keadilan, kesetaraan hak, dan kemaslahatan bersama bagi seluruh lapisan warga.", score: 5 },
+                    C: { txt: "Mengikuti keputusan voting tanpa peduli dampak keadilan sosial bagi warga miskin.", score: 3 },
+                    D: { txt: "Meminta kelompok ekonomi kuat memberikan kompensasi uang damai kepada warga kurang mampu.", score: 2 },
+                    E: { txt: "Mundur dari kepanitiaan program agar tidak perlu pusing memikirkan jalan keluarnya.", score: 2 }
+                }
+            },
+            {
+                id: 8, dim: "UUD 1945", flag: "A",
+                stem: "Anda ditugaskan mengawal berkas rahasia negara. Di perjalanan, kendaraan Anda dihentikan oleh oknum yang mengaku aparat hukum berwenang namun tidak dilengkapi surat perintah pemeriksaan resmi. Tindakan Anda...",
+                opts: {
+                    A: { txt: "Langsung menyerahkan berkas rahasia tersebut karena takut berurusan dengan aparat hukum.", score: 1 },
+                    B: { txt: "Menolak pemeriksaan berkas rahasia, meminta kelengkapan identitas dan surat perintah resmi, serta segera berkoordinasi dengan komando satuan atas.", score: 5 },
+                    C: { txt: "Melarikan diri dengan memacu kendaraan sekencang mungkin tanpa memikirkan risiko keselamatan.", score: 3 },
+                    D: { txt: "Menyerahkan sejumlah uang agar oknum tersebut membiarkan Anda lewat tanpa pemeriksaan berkas.", score: 2 },
+                    E: { txt: "Membuang berkas rahasia tersebut ke semak-semak jalanan agar tidak ditemukan oleh mereka.", score: 2 }
+                }
+            },
+            {
+                id: 9, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Di platform video digital, beredar materi wawancara tokoh luar negeri yang secara terselubung memuji kekayaan alam Indonesia namun menyatakan bahwa pengelolaan wilayah Papua sebaiknya diserahkan ke badan internasional. Sikap Anda...",
+                opts: {
+                    A: { txt: "Menyetujui argumen tersebut demi efisiensi teknologi pengelolaan alam daerah.", score: 1 },
+                    B: { txt: "Menolak narasi tersebut, memahami bahwa kedaulatan NKRI atas setiap jengkal wilayah tanah air adalah mutlak dan harga mati yang tidak bisa diganggu gugat.", score: 5 },
+                    C: { txt: "Ikut membagikan video tersebut karena kemasan visual dan bahasanya terlihat sangat ilmiah.", score: 2 },
+                    D: { txt: "Mengabaikan video tersebut karena merasa urusan wilayah Papua adalah tugas tentara saja.", score: 3 },
+                    E: { txt: "Berkomentar kasar di video tersebut dengan membawa unsur SARA secara vulgar.", score: 2 }
+                }
+            },
+            {
+                id: 10, dim: "Bersih Diri & Loyalitas", flag: "A",
+                stem: "Jika Anda diterima sebagai Abdi Negara, lalu di kemudian hari organisasi atau komunitas tempat tinggal Anda merencanakan aksi boikot membayar pajak negara sebagai bentuk protes kebijakan. Sikap Anda...",
+                opts: {
+                    A: { txt: "Ikut mendukung aksi komunitas demi menjaga kesolidan ikatan ketetanggaan.", score: 1 },
+                    B: { txt: "Menolak tegas keterlibatan, memegang teguh loyalitas tunggal kepada aturan hukum negara, dan mengedukasi warga tentang esensi pajak bagi pembangunan.", score: 5 },
+                    C: { txt: "Membayar pajak secara sembunyi-sembunyi agar tidak dimusuhi oleh warga sekitar.", score: 3 },
+                    D: { txt: "Memilih pindah rumah secepatnya agar terhindar dari pusaran konflik tersebut.", score: 3 },
+                    E: { txt: "Melaporkan seluruh warga RT tersebut ke kejaksaan agung tanpa musyawarah terlebih dahulu.", score: 4 }
+                }
+            },
+            {
+                id: 11, dim: "Kewaspadaan Radikalisme", flag: "A",
+                stem: "Seorang kerabat dekat mulai mengubah penampilannya secara ekstrem, menarik diri dari pergaulan sosial, mengkafirkan orang lain yang berbeda pandangan, dan sering membicarakan konsep perang ideologi akhir zaman. Langkah Anda...",
+                opts: {
+                    A: { txt: "Membiarkan saja karena menganggap perubahan tersebut adalah hak spiritual pribadinya.", score: 1 },
+                    B: { txt: "Melakukan pendekatan persuasif kekeluargaan, mengingatkan bahaya paham ekstrem, dan berkonsultasi dengan tokoh agama/keamanan untuk pembinaan.", score: 5 },
+                    C: { txt: "Memutus hubungan keluarga total dan memblokir nomor kontaknya selamanya.", score: 2 },
+                    D: { txt: "Mengajak kerabat tersebut berdebat keras dengan nada emosi di depan umum.", score: 3 },
+                    E: { txt: "Menyebarkan foto dan identitas kerabat tersebut ke grup media sosial sebagai teroris.", score: 2 }
+                }
+            },
+            {
+                id: 12, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Negara tetangga mengklaim salah satu tarian kebudayaan asli daerah Anda sebagai warisan budaya milik mereka di panggung internasional. Respon nasionalisme Anda adalah...",
+                opts: {
+                    A: { txt: "Membiarkan saja karena kebudayaan sifatnya universal dan bebas diklaim siapa saja.", score: 1 },
+                    B: { txt: "Mendukung upaya inventarisasi resmi pemerintah, aktif melestarikan dan mengenalkan budaya lokal tersebut melalui literasi digital ke dunia luar.", score: 5 },
+                    C: { txt: "Membuat gerakan boikot produk-produk dari negara tetangga tersebut secara massal.", score: 2 },
+                    D: { txt: "Menuntut pemerintah memutuskan hubungan diplomatik dan menyatakan perang fisik hari itu juga.", score: 3 },
+                    E: { txt: "Menyalahkan para pelaku seni lokal karena dianggap kurang gencar mempromosikan tarian.", score: 2 }
+                }
+            },
+            {
+                id: 13, dim: "Pancasila", flag: "E",
+                stem: "Menurut Anda, bagaimana implementasi nilai ketuhanan Sila ke-1 Pancasila yang paling tepat dalam kehidupan bermasyarakat yang majemuk?",
+                opts: {
+                    A: { txt: "Memaksakan aturan ibadah agama mayoritas untuk diterapkan kepada seluruh pemeluk agama lain.", score: 1 },
+                    B: { txt: "Menjalankan keyakinan agama sendiri dengan taat seraya menjunjung tinggi toleransi, kebebasan beribadah, dan menghormati pemeluk agama lain.", score: 5 },
+                    C: { txt: "Menggabungkan ajaran semua agama menjadi satu aliran baru demi kedamaian sosial.", score: 2 },
+                    D: { txt: "Tidak perlu menonjolkan identitas agama apa pun di ruang publik demi menghindari konflik.", score: 3 },
+                    E: { txt: "Melarang pendirian rumah ibadah agama minoritas di lingkungan tempat tinggal Anda.", score: 2 }
+                }
+            },
+            {
+                id: 14, dim: "UUD 1945", flag: "A",
+                stem: "Saat mengendarai kendaraan dinas, Anda tidak sengaja melanggar lampu lalu lintas karena terburu-buru menghadiri rapat penting. Anda dihentikan oleh petugas polantas. Sikap Anda...",
+                opts: {
+                    A: { txt: "Menggunakan nama instansi atau jabatan pimpinan untuk meminta dispensasi bebas tilang.", score: 1 },
+                    B: { txt: "Menerima kesalahan dengan kesatria, mengikuti prosedur penilangan hukum secara tertib, karena hukum berlaku setara bagi setiap warga negara.", score: 5 },
+                    C: { txt: "Memberikan uang damai kepada petugas polantas agar prosesnya cepat selesai.", score: 2 },
+                    D: { txt: "Mendebat petugas polantas dan bersikeras bahwa kepentingan rapat negara berada di atas aturan jalanan.", score: 3 },
+                    E: { txt: "Meninggalkan kendaraan di lokasi dan memilih naik ojek online demi mengejar waktu rapat.", score: 2 }
+                }
+            },
+            {
+                id: 15, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Ketika meredam gejolak sosial di masyarakat terkait pembagian bantuan sosial yang dinilai tidak merata, tindakan awal yang mencerminkan stabilitas bela negara adalah...",
+                opts: {
+                    A: { txt: "Menggunakan kekuatan fisik untuk membubarkan protes warga secara paksa.", score: 2 },
+                    B: { txt: "Membuka ruang dialog terbuka, melakukan verifikasi data bersama perangkat desa, dan menenangkan warga agar tidak anarkis.", score: 5 },
+                    C: { txt: "Menjanjikan bantuan tambahan palsu menggunakan uang pribadi yang sebenarnya tidak ada.", score: 2 },
+                    D: { txt: "Menutup kantor pelayanan desa dan menunda pembagian bantuan sampai batas waktu tak ditentukan.", score: 1 },
+                    E: { txt: "Menyalahkan instansi pusat sebagai biang keladi kesalahan input data administrasi.", score: 3 }
+                }
+            },
+            {
+                id: 16, dim: "Bersih Diri & Loyalitas", flag: "A",
+                stem: "Sebuah perusahaan swasta menawarkan fasilitas liburan mewah luar negeri secara cuma-cuma kepada keluarga Anda, bertepatan dengan rencana instansi Anda melakukan audit kelayakan pada perusahaan tersebut. Sikap Anda...",
+                opts: {
+                    A: { txt: "Menerima fasilitas tersebut karena diberikan secara pribadi kepada keluarga, bukan kepada Anda.", score: 1 },
+                    B: { txt: "Menolak dengan tegas tawaran tersebut karena sadar hal itu adalah bentuk gratifikasi tersembunyi yang merusak integritas profesi.", score: 5 },
+                    C: { txt: "Menerima tawaran namun berjanji akan tetap bertindak objektif dan netral saat proses audit berlangsung.", score: 2 },
+                    D: { txt: "Melimpahkan tugas audit perusahaan tersebut kepada rekan kerja lain agar Anda bisa menikmati liburan.", score: 3 },
+                    E: { txt: "Melaporkan perusahaan swasta tersebut ke KPK tanpa melakukan konfirmasi penolakan terlebih dahulu.", score: 4 }
+                }
+            },
+            {
+                id: 17, dim: "Kewaspadaan Radikalisme", flag: "A",
+                stem: "Anda diundang bergabung dalam sebuah grup obrolan digital tertutup yang sering membagikan infografis mengenai ketidakadilan hukum pemerintah dan menyelipkan doktrin jihad bersenjata mengganti sistem negara. Sikap Anda...",
+                opts: {
+                    A: { txt: "Tetap bertahan di grup hanya untuk memantau informasi tanpa ikut berkomentar.", score: 2 },
+                    B: { txt: "Keluar dari grup obrolan tersebut secara tegas, memblokir pengundang, dan melaporkan tangkapan layar bukti doktrin ke unit siber Polri.", score: 5 },
+                    C: { txt: "Mengikuti instruksi di grup untuk menghadiri pertemuan tatap muka secara rahasia.", score: 1 },
+                    D: { txt: "Mendebat argumen admin grup menggunakan akun asli Anda hingga memicu ancaman personal.", score: 3 },
+                    E: { txt: "Menghapus aplikasi obrolan tersebut dari ponsel Anda tanpa melapor ke pihak mana pun.", score: 3 }
+                }
+            },
+            {
+                id: 18, dim: "Pancasila", flag: "A",
+                stem: "Di lingkungan tempat tinggal Anda, seorang warga dari kelompok minoritas ditolak oleh sekelompok massa saat hendak mengontrak rumah karena alasan perbedaan latar belakang. Sikap Anda selaku warga negara mencerminkan Sila ke-2 Pancasila...",
+                opts: {
+                    A: { txt: "Ikut menolak demi menjaga kedamaian dan menghindari keributan dengan massa mayoritas.", score: 1 },
+                    B: { txt: "Membela hak warga tersebut, berkoordinasi dengan Ketua RT dan aparat keamanan untuk meredam penolakan berdasarkan asas kemanusiaan yang adil dan beradab.", score: 5 },
+                    C: { txt: "Meminta warga minoritas tersebut mencari kontrakan di desa lain saja demi keselamatannya.", score: 3 },
+                    D: { txt: "Diam saja dan menonton jalannya mediasi dari kejauhan tanpa ingin terlibat konflik.", score: 2 },
+                    E: { txt: "Mendatangi kelompok massa penolak dan memaki mereka dengan kata-kata kasar.", score: 2 }
+                }
+            },
+            {
+                id: 19, dim: "Bhinneka Tunggal Ika", flag: "A",
+                stem: "Saat memimpin sebuah tim kerja yang anggotanya berasal dari berbagai suku bangsa di Indonesia, terjadi ego kedaerahan yang menghambat penyelesaian tugas kelompok. Strategi Anda adalah...",
+                opts: {
+                    A: { txt: "Memisahkan anggota tim berdasarkan suku yang sama agar bekerja lebih cepat.", score: 1 },
+                    B: { txt: "Menyatukan cara pandang, menekankan profesionalisme tugas, dan mengingatkan esensi bahwa keberagaman adalah kekuatan penunjang keberhasilan tim NKRI.", score: 5 },
+                    C: { txt: "Memberikan sanksi berat kepada anggota yang paling vokal menyuarakan asal usul daerahnya.", score: 3 },
+                    D: { txt: "Mengambil alih seluruh pekerjaan tim secara mandiri agar tugas selesai tanpa perdebatan.", score: 2 },
+                    E: { txt: "Melaporkan kondisi ketidaksolidan tim kepada atasan tertinggi agar tim dibubarkan.", score: 2 }
+                }
+            },
+            {
+                id: 20, dim: "UUD 1945", flag: "A",
+                stem: "Sebagai Abdi Negara, Anda ditugaskan ke wilayah terpencil pascabencana alam. Kondisi lapangan sangat minim fasilitas, listrik padam, dan logistik terbatas. Tindakan yang Anda tunjukkan adalah...",
+                opts: {
+                    A: { txt: "Mengeluhkan kondisi lapangan kepada media sosial pribadi agar mendapatkan perhatian publik.", score: 2 },
+                    B: { txt: "Menerima penugasan dengan penuh tanggung jawab, beradaptasi dengan keterbatasan, dan fokus maksimal membantu pemulihan sosial warga.", score: 5 },
+                    C: { txt: "Meminta pindah lokasi tugas ke wilayah yang memiliki fasilitas lebih memadai.", score: 1 },
+                    D: { txt: "Bekerja seadanya saja sesuai dengan ketersediaan fasilitas yang ada di lapangan.", score: 3 },
+                    E: { txt: "Menunggu bantuan logistik pusat tiba secara lengkap baru memulai aktivitas kedinasan.", score: 2 }
+                }
+            },
+            {
+                id: 21, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Sebuah lembaga swadaya masyarakat (LSM) asing menawarkan dana bantuan kemanusiaan yang besar untuk pembangunan desa Anda, namun mensyaratkan akses berkala untuk mengambil sampel data genetik dan kesehatan warga lokal secara rahasia. Sikap Anda...",
+                opts: {
+                    A: { txt: "Menerima dana tersebut demi kemajuan infrastruktur fasilitas kesehatan desa.", score: 1 },
+                    B: { txt: "Menolak syarat tersebut karena data genetik dan kesehatan populasi adalah aset strategis keamanan biologis negara yang wajib dilindungi dari pihak asing.", score: 5 },
+                    C: { txt: "Menerima bantuan dan memberikan data kesehatan palsu hasil manipulasi administrasi.", score: 3 },
+                    D: { txt: "Menyerahkan keputusan sepenuhnya kepada musyawarah warga tanpa memberi pandangan bahaya siber.", score: 2 },
+                    E: { txt: "Melaporkan LSM asing tersebut ke dinas intelijen untuk dilakukan penangkapan paksa hari itu juga.", score: 4 }
+                }
+            },
+            {
+                id: 22, dim: "Bersih Diri & Loyalitas", flag: "A",
+                stem: "Anda mengetahui bahwa atasan langsung Anda menggunakan anggaran operasional dinas untuk membiayai keperluan kampanye politik salah satu calon kepala daerah. Sikap loyalitas hukum Anda adalah...",
+                opts: {
+                    A: { txt: "Membantu menyusun laporan administrasi fiktif demi menjaga nama baik atasan.", score: 1 },
+                    B: { txt: "Menolak terlibat dalam manipulasi data, mengumpulkan bukti otentik secara senyap, dan melaporkannya ke unit pengawas internal/Tipikor.", score: 5 },
+                    C: { txt: "Membocorkan kasus ini ke media massa menggunakan akun anonim agar viral di internet.", score: 3 },
+                    D: { txt: "Menegur atasan secara langsung di depan staf lain saat rapat evaluasi berlangsung.", score: 2 },
+                    E: { txt: "Pura-pura tidak melihat pelanggaran tersebut demi mengamankan jenjang karier Anda.", score: 2 }
+                }
+            },
+            {
+                id: 23, dim: "Kewaspadaan Radikalisme", flag: "A",
+                stem: "Di lingkungan sekolah anak Anda, salah seorang oknum pengajar menyisipkan materi yang meragukan keabsahan Pancasila sebagai pemersatu bangsa dan mulai mengenalkan sistem khilafah kepada para siswa. Tindakan Anda...",
+                opts: {
+                    A: { txt: "Memindahkan anak ke sekolah lain tanpa melakukan tindakan koreksi apa pun.", score: 2 },
+                    B: { txt: "Melaporkan temuan doktrin tersebut beserta bukti kepada Kepala Sekolah, Dinas Pendidikan, dan pihak berwenang agar segera ditindak tegas.", score: 5 },
+                    C: { txt: "Mengajak orang tua murid lain untuk melakukan demonstrasi anarkis merusak fasilitas sekolah.", score: 2 },
+                    D: { txt: "Menegur oknum pengajar tersebut secara pribadi dan menantangnya debat teologi terbuka.", score: 3 },
+                    E: { txt: "Membiarkan saja karena menganggap materi tersebut hanyalah perluasan wawasan sejarah dunia.", score: 1 }
+                }
+            },
+            {
+                id: 24, dim: "Bhinneka Tunggal Ika", flag: "A",
+                stem: "Bagaimana sikap Anda terhadap maraknya fenomena komedi atau guyonan di media sosial yang menggunakan stereotip suku atau ras tertentu di Indonesia sebagai bahan ejekan?",
+                opts: {
+                    A: { txt: "Sangat terhibur karena menganggap hal tersebut hanyalah kreativitas seni hiburan semata.", score: 1 },
+                    B: { txt: "Menolak dan tidak ikut membagikan konten tersebut karena berpotensi mengikis rasa saling menghormati dan merusak persatuan Bhinneka Tunggal Ika.", score: 5 },
+                    C: { txt: "Ikut membuat konten serupa dengan menggunakan suku sendiri sebagai bahan ejekan agar adil.", score: 2 },
+                    D: { txt: "Melaporkan semua akun pembuat konten komedi tersebut ke polisi pamong praja.", score: 3 },
+                    E: { txt: "Membiarkan saja selama konten tersebut tidak mengejek latar belakang suku asli Anda sendiri.", score: 2 }
+                }
+            },
+            {
+                id: 25, dim: "Bersih Diri & Loyalitas", flag: "A",
+                stem: "Seorang rekan kerja yang baru dipecat karena terbukti melakukan pelanggaran disiplin berat, memposting rahasia operasional internal instansi Anda di internet sebagai bentuk balas dendam. Sikap Anda...",
+                opts: {
+                    A: { txt: "Menyukai dan ikut memberikan komentar mendukung postingan mantan rekan kerja tersebut.", score: 1 },
+                    B: { txt: "Melaporkan link postingan tersebut ke unit hukum instansi agar segera dilakukan proses takedown resmi dan penegakan hukum UU ITE.", score: 5 },
+                    C: { txt: "Menghubungi mantan rekan kerja tersebut untuk meminta bocoran rahasia instansi yang lebih detail.", score: 2 },
+                    D: { txt: "Mencoba menasihatinya di kolom komentar publik agar menghapus postingan tersebut.", score: 3 },
+                    E: { txt: "Memilih pasif dan tidak peduli karena rahasia yang dibongkar bukan milik divisi kerja Anda.", score: 2 }
+                }
+            }
+        ];
+
+        let activeQuestions = [...sourceQuestions].sort(() => Math.random() - 0.5);
+        let currentIdx = 0;
+        let userAnswers = {};
+        let examTimer;
+        let remainingTime = 50 * 60;
+
+        function startExam() {
+            const nameInput = document.getElementById("student-name").value.trim();
+            if (!nameInput) {
+                alert("Harap masukkan nama Anda terlebih dahulu!");
+                return;
+            }
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("main-cat-screen").style.display = "block";
+            buildGridMap();
+            showQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            examTimer = setInterval(() => {
+                remainingTime--;
+                let mins = Math.floor(remainingTime / 60);
+                let secs = remainingTime % 60;
+                document.getElementById("txt-timer").innerText = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (remainingTime <= 0) evaluateAndSubmit();
+            }, 1000);
+        }
+
+        function buildGridMap() {
+            let area = document.getElementById("grid-map-area");
+            area.innerHTML = "";
+            activeQuestions.forEach((q, i) => {
+                let btn = document.createElement("div");
+                btn.className = "grid-item";
+                btn.id = `grid-btn-${i}`;
+                btn.innerText = (i + 1).toString().padStart(2, '0');
+                btn.onclick = () => { showQuestion(i); window.scrollTo(0, 100); };
+                area.appendChild(btn);
+            });
+        }
+
+        function showQuestion(idx) {
+            currentIdx = idx;
+            const q = activeQuestions[idx];
+            
+            document.getElementById("txt-number").innerText = `KASUS ${ (idx + 1).toString().padStart(2, '0') } DARI ${activeQuestions.length}`;
+            document.getElementById("txt-dimensi").innerText = `DIMENSI: ${q.dim.toUpperCase()}`;
+            document.getElementById("txt-stem").innerText = q.stem;
+            
+            let container = document.getElementById("options-container");
+            container.innerHTML = "";
+            
+            const optKeys = ['A', 'B', 'C', 'D', 'E'];
+            optKeys.forEach((key) => {
+                let optData = q.opts[key];
+                let isChecked = userAnswers[q.id] === key ? "checked" : "";
+                let isSelectedClass = userAnswers[q.id] === key ? "selected" : "";
+                
+                container.innerHTML += `
+                    <label class="sjt-option-item ${isSelectedClass}" onclick="selectOption('${q.id}', '${key}', ${idx})">
+                        <input type="radio" name="sjt_opt_${q.id}" value="${key}" ${isChecked}>
+                        <span class="sjt-option-text"><b>${key}.</b> ${optData.txt}</span>
+                    </label>
+                `;
+            });
+            
+            activeQuestions.forEach((item, k) => {
+                let element = document.getElementById(`grid-btn-${k}`);
+                if (element) {
+                    element.className = "grid-item";
+                    if (userAnswers[item.id]) element.classList.add("answered");
+                    if (k === idx) element.classList.add("current");
+                }
+            });
+
+            let btnNext = document.getElementById("btn-next");
+            if (idx === activeQuestions.length - 1) {
+                btnNext.innerText = "SELESAI";
+                btnNext.style.background = "var(--success)";
+                btnNext.style.borderColor = "var(--success)";
+                btnNext.style.color = "white";
+            } else {
+                btnNext.innerText = "Selanjutnya";
+                btnNext.style.background = "var(--primary)";
+                btnNext.style.borderColor = "var(--accent)";
+                btnNext.style.color = "var(--accent)";
+            }
+        }
+
+        function selectOption(qId, key, idx) {
+            userAnswers[qId] = key;
+            let mapBtn = document.getElementById(`grid-btn-${idx}`);
+            if(mapBtn) mapBtn.classList.add('answered');
+
+            if (currentIdx < activeQuestions.length - 1) {
+                setTimeout(() => { showQuestion(currentIdx + 1); }, 150);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < activeQuestions.length - 1) {
+                showQuestion(currentIdx + 1);
+            } else {
+                confirmSubmit();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                showQuestion(currentIdx - 1);
+            }
+        }
+
+        function confirmSubmit() {
+            let answeredCount = Object.keys(userAnswers).length;
+            if (answeredCount < activeQuestions.length) {
+                if(!confirm(`Kamu baru mengisi ${answeredCount} kasus. Tetap kumpulkan latihan MI/PMK Seri B ini?`)) return;
+            } else {
+                if(!confirm("Apakah Anda yakin ingin memproses nilai evaluasi Seri B ini?")) return;
+            }
+            evaluateAndSubmit();
+        }
+
+        function evaluateAndSubmit() {
+            clearInterval(examTimer);
+            let totalAccumulatedPoints = 0;
+            let isRedFlagged = false;
+            let reviewHtml = "";
+
+            let dimScores = {
+                "Pancasila": { get: 0, max: 0 },
+                "UUD 1945": { get: 0, max: 0 },
+                "NKRI & Bela Negara": { get: 0, max: 0 },
+                "Bhinneka Tunggal Ika": { get: 0, max: 0 },
+                "Kewaspadaan Radikalisme": { get: 0, max: 0 },
+                "Bersih Diri & Loyalitas": { get: 0, max: 0 }
+            };
+
+            const sortedForReview = [...activeQuestions].sort((a,b) => a.id - b.id);
+
+            sortedForReview.forEach((q, i) => {
+                const selectedKey = userAnswers[q.id];
+                let optScore = 0;
+                let textJawaban = "Tidak Memberikan Respon (Skor Minimal)";
+                
+                let bestKey = "";
+                for (let key in q.opts) {
+                    if (q.opts[key].score === 5) {
+                        bestKey = key;
+                        break;
+                    }
+                }
+                let textKunciBenar = `${bestKey}. ${q.opts[bestKey].txt}`;
+
+                if (selectedKey) {
+                    optScore = q.opts[selectedKey].score;
+                    textJawaban = `${selectedKey}. ${q.opts[selectedKey].txt}`;
+                    if (selectedKey === q.flag) isRedFlagged = true;
+                } else {
+                    optScore = 2; 
+                }
+
+                totalAccumulatedPoints += optScore;
+
+                if (dimScores[q.dim]) {
+                    dimScores[q.dim].get += optScore;
+                    dimScores[q.dim].max += 5;
+                }
+
+                // REVIEW CARD PADAT TANPA JARAK BERLEBIHAN
+                reviewHtml += `
+                    <div class="review-card" style="border-left-color: ${optScore === 5 ? 'var(--success)' : optScore >= 3 ? 'var(--accent)' : 'var(--danger)'}">
+                        <div><b>KASUS ${i + 1}:</b> <span>${q.stem}</span></div>
+                        <div class="review-meta">Dimensi: ${q.dim}</div>
+                        
+                        <div class="review-section-title" style="color: var(--primary);">Respon Anda:</div>
+                        <div style="color: ${optScore === 1 ? 'var(--danger)' : '#334155'}; font-weight:600;">${textJawaban}</div>
+                        
+                        <div class="review-section-title" style="color: var(--success);">Kunci Terbaik (Skor 5):</div>
+                        <div style="color: #117A65; font-weight:600;">${textKunciBenar}</div>
+                        
+                        <div style="margin-top: 6px; background: #F8FAFC; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; display: inline-block; border: 1px solid #E2E8F0;">
+                            Bobot Nilai: <b style="color:${optScore >= 4 ? 'var(--success)' : 'var(--danger)'};">+${optScore}</b> Poin.
+                        </div>
+                    </div>
+                `;
+            });
+
+            const finalScore = Math.round((totalAccumulatedPoints / 125) * 100);
+
+            let tableBody = document.getElementById("dimension-table-body");
+            tableBody.innerHTML = "";
+            for (let dimName in dimScores) {
+                let data = dimScores[dimName];
+                let percent = Math.round((data.get / data.max) * 100);
+                
+                let statusBadge = "";
+                if (percent >= 80) {
+                    statusBadge = "<span class='badge-dim-status' style='background:#E8F8F5; color:#117A65;'>SANGAT KUAT</span>";
+                } else if (percent >= 65) {
+                    statusBadge = "<span class='badge-dim-status' style='background:#EAF2F8; color:#2471A3;'>CUKUP KUAT</span>";
+                } else {
+                    statusBadge = "<span class='badge-dim-status' style='background:#FDEDEC; color:#CB4335;'>PERLU ATENSI</span>";
+                }
+
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${dimName}</td>
+                        <td>${percent} / 100</td>
+                        <td>${statusBadge}</td>
+                    </tr>
+                `;
+            }
+
+            let kategoriStr = "";
+            let analisisStr = "";
+            let saranStr = "";
+
+            if (finalScore >= 80) {
+                kategoriStr = "<span style='color: var(--success);'>IDEOLOGI NEGARA MATANG (MEMENUHI SYARAT)</span>";
+                analisisStr = "Respon tindakan yang dipilih mencerminkan pemahaman integritas kebangsaan yang sangat kuat. Calon konsisten menempatkan hukum negara dan keselamatan NKRI di atas kepentingan pribadi/golongan serta memiliki benteng ideologi yang kokoh dari infiltrasi luar.";
+                saranStr = "Pertahankan konsistensi pola berpikir ini. Pada seleksi wawancara dinas ril, pertahankan argumentasi tegas yang memihak penuh pada aturan tertulis kesatuan dan Pancasila.";
+            } else if (finalScore >= 65) {
+                kategoriStr = "<span style='color: #2471A3;'>NASIONALISME CUKUP (BUTUH PENGUATAN)</span>";
+                analisisStr = "Cara pandang kebangsaan sudah mengarah pada kesetiaan negara, namun calon masih menunjukkan toleransi atau keraguan pada studi kasus dilematis yang melibatkan relasi senioritas, kekeluargaan adat, atau konflik kepentingan kerja harian.";
+                saranStr = "Pelajari kembali lembar evaluasi koreksi di bawah. Tekankan pada prinsip bahwa loyalitas Abdi Negara bersifat tunggal, mutlak, dan lurus tanpa kompromi kepada pelanggaran falsafah bangsa.";
+            } else {
+                kategoriStr = "<span style='color: #CB4335;'>BELUM MEMENUHI SYARAT KEBANGSAAN</span>";
+                analisisStr = "Pilihan tindakan calon banyak yang mengabaikan aspek kerahasiaan negara, permisif terhadap indikasi doktrin radikal terselubung, atau lebih mengutamakan keselamatan posisi personal dibanding penegakan prosedur hukum pertahanan.";
+                saranStr = "Wajib melakukan pendalaman materi, bimbingan intensif, serta bedah tuntas studi kasus bersama tutor pendamping untuk meluruskan pemahaman bela negara.";
+            }
+
+            if (isRedFlagged) {
+                document.getElementById("red-flag-box").style.display = "block";
+                kategoriStr += " <br><b style='color:#A93226; font-size:0.75rem;'>[ALERTI: REKOMENDASI PEMANTAUAN KHUSUS]</b>";
+            } else {
+                document.getElementById("red-flag-box").style.display = "none";
+            }
+
+            document.getElementById("main-cat-screen").style.display = "none";
+            document.getElementById("result-screen").style.display = "block";
+
+            const studentName = document.getElementById("student-name").value.toUpperCase();
+            document.getElementById("res-name").innerText = "NAMA CALON SISWA: " + studentName;
+            document.getElementById("res-skor-akhir").innerText = finalScore;
+            
+            document.getElementById("txt-kategori").innerHTML = kategoriStr;
+            document.getElementById("txt-analisis").innerText = analisisStr;
+            document.getElementById("txt-saran").innerText = saranStr;
+
+            document.getElementById("review-list").innerHTML = reviewHtml;
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>EVALUASI ASESMEN MENTAL IDEOLOGI & PMK — PERSONA RESEARCH & CONSULTING</title>
+    <style>
+        :root { 
+            --primary: #0A1128; 
+            --deep-space: #1C2541;
+            --accent: #C5A880; 
+            --bg: #F1F5F9; 
+            --white: #FFFFFF; 
+            --success: #27AE60; 
+            --danger: #E74C3C; 
+            --premium-gray: #64748B;
+            --border: #CBD5E1;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none; 
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+        
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--primary);
+        }
+        
+        header { 
+            background: var(--primary); 
+            color: var(--accent); 
+            padding: 10px; 
+            text-align: center; 
+            border-bottom: 2px solid var(--accent); 
+            font-weight: 700; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+        }
+        
+        #login-screen, #main-cat-screen, #result-screen {
+            width: 100%;
+            max-width: 880px; 
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        #login-screen {
+            max-width: 440px;
+            padding-top: 10vh;
+        }
+        
+        .login-card { 
+            background: var(--white); 
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 20px rgba(10, 17, 40, 0.05); 
+            text-align: center; 
+            border-top: 4px solid var(--accent);
+        }
+        
+        .brand-title { color: var(--primary); font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+        .brand-sub { color: var(--premium-gray); font-size: 0.75rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; }
+        
+        input[type="text"] { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1.5px solid var(--border); 
+            border-radius: 6px; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            text-align: center;
+            outline: none;
+            background: #F8FAFC;
+        }
+        
+        button { 
+            background: var(--primary); 
+            color: var(--accent); 
+            border: 1.5px solid var(--accent); 
+            padding: 10px 20px; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+        }
+        button:hover { background: var(--accent); color: var(--primary); }
+        
+        .panel-question { 
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
+            border-top: 4px solid var(--primary);
+        }
+        
+        .question-meta { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-weight: 700; 
+            font-size: 0.75rem; 
+            color: var(--premium-gray); 
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .top-timer-badge {
+            background: #FFF0F0;
+            color: var(--danger);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+        
+        .question-text { 
+            font-size: 0.98rem; 
+            font-weight: 600; 
+            line-height: 1.5; 
+            text-align: justify; 
+            margin-bottom: 18px;
+        }
+        
+        .sjt-options-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; 
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .sjt-option-item {
+            display: flex;
+            align-items: flex-start;
+            background: #F8FAFC;
+            padding: 10px 14px; 
+            border-radius: 6px;
+            border: 1.5px solid #E2E8F0;
+            cursor: pointer;
+        }
+        .sjt-option-item:hover { border-color: var(--accent); background: #FFFDF9; }
+        
+        .sjt-option-item input[type="radio"] {
+            margin-top: 2px;
+            margin-right: 10px;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .sjt-option-text { font-size: 0.88rem; font-weight: 600; color: #334155; line-height: 1.4; }
+        .sjt-option-item.selected { border-color: var(--primary); background: #F1F5F9; }
+        
+        .nav-buttons { 
+            display: flex; 
+            justify-content: space-between; 
+            border-top: 1px solid #E2E8F0;
+            padding-top: 15px;
+        }
+        .btn-nav { padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; }
+        
+        .panel-bottom-navigation {
+            background: var(--white);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .grid-map { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); 
+            gap: 6px; 
+        }
+        
+        .grid-item { 
+            background: #F1F5F9; 
+            border: 1px solid #CBD5E1; 
+            color: #475569; 
+            height: 34px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700; 
+            font-size: 0.78rem; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        .grid-item.answered { background: var(--primary); border-color: var(--primary); color: var(--accent); }
+        .grid-item.current { border-color: var(--accent); background: #FFFDF9; color: var(--primary); box-shadow: 0 0 4px rgba(197,168,128,0.3); }
+        
+        .sidebar-meta { font-size: 0.7rem; font-weight: 700; color: var(--premium-gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .score-box { padding: 12px; border-radius: 6px; font-weight: 800; font-size: 0.85rem; text-align: center; }
+        
+        .review-card { 
+            background: white; 
+            padding: 12px 16px; 
+            border-radius: 6px; 
+            margin-bottom: 8px; 
+            border-left: 4px solid #CBD5E1; 
+            text-align: left; 
+            font-size: 0.88rem;
+        }
+        .review-meta { font-size: 0.68rem; font-weight: 700; color: var(--premium-gray); margin-top: 4px; text-transform: uppercase; }
+        .review-section-title { font-weight: 700; margin-top: 6px; font-size: 0.82rem; }
+
+        .dimension-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+        .dimension-table th { background: var(--primary); color: var(--accent); text-align: left; padding: 8px; font-weight: 700; }
+        .dimension-table td { padding: 8px; border-bottom: 1px solid #E2E8F0; font-weight: 600; }
+        .badge-dim-status { padding: 2px 6px; border-radius: 3px; font-size: 0.72rem; font-weight: 700; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <header>PRC Portal — Simulasi CAT Assessment Mental Ideologi & PMK (Seri B)</header>
+
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="brand-title">ASESMEN MENTAL IDEOLOGI & PMK</div>
+            <div class="brand-sub">SIMULASI EVALUASI INTEGRITAS KEBANGSAAN — SERI B</div>
+            <input id="student-name" placeholder="NAMA LENGKAP CALON" type="text" autocomplete="off"/>
+            <button onclick="startExam()" style="width: 100%;">Mulai Simulasi CAT Seri B</button>
+        </div>
+    </div>
+
+    <div id="main-cat-screen" style="display: none;">
+        <div class="panel-question" id="question-block">
+            <div class="question-meta">
+                <span id="txt-number">KASUS 01 DARI 25</span>
+                <span id="txt-dimensi" style="color: var(--accent); margin-right: auto; margin-left: 15px;">ASPEK: -</span>
+                <div id="txt-timer" class="top-timer-badge">50:00</div>
+            </div>
+            
+            <div class="question-text" id="txt-stem">-</div>
+            
+            <div id="options-container" class="sjt-options-vertical">
+                </div>
+            
+            <div class="nav-buttons">
+                <button class="btn-nav" onclick="prevQuestion()">Sebelumnya</button>
+                <button id="btn-next" class="btn-nav" onclick="nextQuestion()">Selanjutnya</button>
+            </div>
+        </div>
+        
+        <div class="panel-bottom-navigation">
+            <div class="sidebar-meta">Peta Alur Soal Kebangsaan (Seri B)</div>
+            <div id="grid-map-area" class="grid-map"></div>
+        </div>
+    </div>
+
+    <div id="result-screen" style="display: none;">
+        <h2 id="res-name" style="font-size: 1.15rem; margin-bottom: 2px;">NAMA CALON SISWA: -</h2>
+        <div style="color: var(--premium-gray); font-weight: 700; text-transform: uppercase; font-size:0.7rem; letter-spacing: 0.5px; margin-bottom: 15px;">
+            Persona Research &amp; Consulting
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+            <div class="score-box" style="background: var(--primary); color: var(--accent); min-width: 180px; flex: 1;">
+                INDEKS WAWASAN KEBANGSAAN<br>
+                <b id="res-skor-akhir" style="font-size: 1.8rem;">0</b>
+            </div>
+            <div id="red-flag-box" class="score-box" style="background: #FFF3CD; color: #856404; border: 1px solid #FFEBAA; min-width: 180px; flex: 1; display: none;">
+                ⚠️ CATATAN KHUSUS EVALUATOR<br>
+                <b style="font-size: 0.8rem; color: #856404; text-transform: uppercase; display: block; margin-top: 4px;">Terindikasi Kontra-Ideologi Negara</b>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 15px; border-radius: 8px; border-top: 4px solid var(--primary); margin-bottom: 15px;">
+            <table class="dimension-table">
+                <thead>
+                    <tr>
+                        <th>KRITERIA</th>
+                        <th>Nilai Capaian</th>
+                        <th>Kategori Kemampuan</th>
+                    </tr>
+                </thead>
+                <tbody id="dimension-table-body"></tbody>
+            </table>
+        </div>
+
+        <div id="profil-kategori-box" style="background: white; padding: 15px; border-radius: 8px; border-top: 4px solid var(--accent); margin-bottom: 20px; font-size: 0.88rem;">
+            <div style="margin-bottom: 10px;">
+                <span style="font-weight: 700; color: var(--premium-gray); font-size: 0.72rem;">KLASIFIKASI UMUM:</span><br>
+                <span id="txt-kategori" style="font-size: 1rem; font-weight: 800;">-</span>
+            </div>
+            <div style="margin-bottom: 10px; background: #F8FAFC; padding: 10px; border-radius: 4px; border-left: 3px solid var(--primary);">
+                <span style="font-weight: 700; color: var(--primary); font-size: 0.72rem;">DESKRIPSI CARA PANDANG:</span><br>
+                <p id="txt-analisis" style="color: #334155; line-height: 1.4; text-align: justify; margin: 4px 0 0 0;">-</p>
+            </div>
+            <div>
+                <span style="font-weight: 700; color: var(--success); font-size: 0.72rem;">REKOMENDASI PENGEMBANGAN:</span><br>
+                <p id="txt-saran" style="color: #1E293B; line-height: 1.4; text-align: justify; margin: 4px 0 0 0;">-</p>
+            </div>
+        </div>
+
+        <h3 style="text-align: left; color: var(--primary); font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; border-bottom: 1.5px solid var(--primary); padding-bottom: 4px;">
+            Lembar Koreksi Pilihan Respon Kasus (Seri B - Padat)
+        </h3>
+        <div id="review-list"></div>
+    </div>
+
+    <script>
+        // PENGAMAN AKTIF PERMANEN TANPA BATAS WAKTU KUNCI
+        window.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'a' || e.key === 'p') || e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        const sourceQuestions = [
+{
+                id: 1, dim: "Pancasila", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait media sosial, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    C: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    D: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    E: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 }
+                }
+            },
+{
+                id: 2, dim: "UUD 1945", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait kerahasiaan negara, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    B: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    D: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    E: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 }
+                }
+            },
+{
+                id: 3, dim: "NKRI & Bela Negara", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait konflik kepentingan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    C: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    D: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    E: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 }
+                }
+            },
+{
+                id: 4, dim: "Bhinneka Tunggal Ika", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait pelayanan publik, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    D: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    E: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 }
+                }
+            },
+{
+                id: 5, dim: "Bersih Diri & Loyalitas", flag: "C",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait toleransi, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    B: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    D: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    E: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 }
+                }
+            },
+{
+                id: 6, dim: "Kewaspadaan Radikalisme", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait radikalisme terselubung, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    B: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    C: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    D: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    E: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 }
+                }
+            },
+{
+                id: 7, dim: "Pancasila", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait senioritas, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    B: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    C: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    D: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    E: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 }
+                }
+            },
+{
+                id: 8, dim: "UUD 1945", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait netralitas ASN, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    C: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    D: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 }
+                }
+            },
+{
+                id: 9, dim: "NKRI & Bela Negara", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait integritas pengadaan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    B: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    C: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    E: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 }
+                }
+            },
+{
+                id: 10, dim: "Bhinneka Tunggal Ika", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait isu separatisme, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    B: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    D: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    E: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 }
+                }
+            },
+{
+                id: 11, dim: "Bersih Diri & Loyalitas", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait media sosial, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 },
+                    B: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    D: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    E: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 }
+                }
+            },
+{
+                id: 12, dim: "Kewaspadaan Radikalisme", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait kerahasiaan negara, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    B: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    D: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    E: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 }
+                }
+            },
+{
+                id: 13, dim: "Pancasila", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait konflik kepentingan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    B: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    D: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    E: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 }
+                }
+            },
+{
+                id: 14, dim: "UUD 1945", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait pelayanan publik, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    C: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    D: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    E: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 }
+                }
+            },
+{
+                id: 15, dim: "NKRI & Bela Negara", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait toleransi, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    B: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    E: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 }
+                }
+            },
+{
+                id: 16, dim: "Bhinneka Tunggal Ika", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait radikalisme terselubung, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 },
+                    C: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    D: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 }
+                }
+            },
+{
+                id: 17, dim: "Bersih Diri & Loyalitas", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait senioritas, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    B: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    E: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 }
+                }
+            },
+{
+                id: 18, dim: "Kewaspadaan Radikalisme", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait netralitas ASN, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    B: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    D: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    E: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 }
+                }
+            },
+{
+                id: 19, dim: "Pancasila", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait integritas pengadaan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    B: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    C: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    D: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 }
+                }
+            },
+{
+                id: 20, dim: "UUD 1945", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait isu separatisme, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    B: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    C: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    D: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    E: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 }
+                }
+            },
+{
+                id: 21, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait media sosial, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    B: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    C: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    D: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 },
+                    E: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 }
+                }
+            },
+{
+                id: 22, dim: "Bhinneka Tunggal Ika", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait kerahasiaan negara, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    B: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    E: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 }
+                }
+            },
+{
+                id: 23, dim: "Bersih Diri & Loyalitas", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait konflik kepentingan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    B: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    D: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    E: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 }
+                }
+            },
+{
+                id: 24, dim: "Kewaspadaan Radikalisme", flag: "C",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait pelayanan publik, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 },
+                    B: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    C: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    D: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    E: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 }
+                }
+            },
+{
+                id: 25, dim: "Pancasila", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait toleransi, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    C: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    D: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    E: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 }
+                }
+            },
+{
+                id: 26, dim: "UUD 1945", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait radikalisme terselubung, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    B: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    E: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 }
+                }
+            },
+{
+                id: 27, dim: "NKRI & Bela Negara", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait senioritas, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    B: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    C: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 },
+                    D: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    E: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 }
+                }
+            },
+{
+                id: 28, dim: "Bhinneka Tunggal Ika", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait netralitas ASN, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    B: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    D: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 }
+                }
+            },
+{
+                id: 29, dim: "Bersih Diri & Loyalitas", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait integritas pengadaan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    B: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 },
+                    C: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    E: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 }
+                }
+            },
+{
+                id: 30, dim: "Kewaspadaan Radikalisme", flag: "C",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait isu separatisme, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    B: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    D: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 }
+                }
+            },
+{
+                id: 31, dim: "Pancasila", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait media sosial, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    B: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    C: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    D: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    E: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 }
+                }
+            },
+{
+                id: 32, dim: "UUD 1945", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait kerahasiaan negara, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    B: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    C: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    D: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    E: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 }
+                }
+            },
+{
+                id: 33, dim: "NKRI & Bela Negara", flag: "C",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait konflik kepentingan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    B: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 },
+                    D: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    E: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 }
+                }
+            },
+{
+                id: 34, dim: "Bhinneka Tunggal Ika", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait pelayanan publik, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    C: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 4 },
+                    D: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    E: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 }
+                }
+            },
+{
+                id: 35, dim: "Bersih Diri & Loyalitas", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait toleransi, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    C: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    D: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    E: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 }
+                }
+            },
+{
+                id: 36, dim: "Kewaspadaan Radikalisme", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait radikalisme terselubung, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    B: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    D: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    E: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 }
+                }
+            },
+{
+                id: 37, dim: "Pancasila", flag: "C",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait senioritas, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    B: { txt: "Berusaha menjaga hubungan baik dengan semua pihak walaupun ada beberapa prosedur yang akhirnya tidak dijalankan secara optimal.", score: 3 },
+                    C: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    D: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    E: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 }
+                }
+            },
+{
+                id: 38, dim: "UUD 1945", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait netralitas ASN, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    D: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    E: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 }
+                }
+            },
+{
+                id: 39, dim: "NKRI & Bela Negara", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait integritas pengadaan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    B: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    D: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 }
+                }
+            },
+{
+                id: 40, dim: "Bhinneka Tunggal Ika", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait isu separatisme, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    B: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    D: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    E: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 }
+                }
+            },
+{
+                id: 41, dim: "Bersih Diri & Loyalitas", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait media sosial, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    B: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    C: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 },
+                    D: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    E: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 }
+                }
+            },
+{
+                id: 42, dim: "Kewaspadaan Radikalisme", flag: "C",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait kerahasiaan negara, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    C: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    D: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 },
+                    E: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 }
+                }
+            },
+{
+                id: 43, dim: "Pancasila", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait konflik kepentingan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    B: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    C: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    D: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 1 },
+                    E: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 }
+                }
+            },
+{
+                id: 44, dim: "UUD 1945", flag: "D",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait pelayanan publik, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Mengutamakan kepentingan pelayanan publik dan stabilitas nasional dibanding hubungan pribadi maupun tekanan kelompok tertentu.", score: 5 },
+                    B: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 },
+                    C: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    D: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    E: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 2 }
+                }
+            },
+{
+                id: 45, dim: "NKRI & Bela Negara", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait toleransi, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    B: { txt: "Membagikan informasi internal tertentu kepada pihak luar demi mempercepat kepentingan praktis dan menjaga relasi pribadi.", score: 1 },
+                    C: { txt: "Menjaga netralitas, mendokumentasikan fakta yang relevan, dan mengambil langkah resmi sesuai mekanisme organisasi serta prinsip integritas Abdi Negara.", score: 5 },
+                    D: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    E: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 }
+                }
+            },
+{
+                id: 46, dim: "Bhinneka Tunggal Ika", flag: "A",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait radikalisme terselubung, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    C: { txt: "Melakukan pendekatan persuasif sambil berkoordinasi dengan atasan dan unsur terkait agar penyelesaian tetap sesuai aturan serta tidak memicu konflik sosial baru.", score: 5 },
+                    D: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 }
+                }
+            },
+{
+                id: 47, dim: "Bersih Diri & Loyalitas", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait senioritas, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memberikan edukasi dan klarifikasi secara proporsional agar masyarakat tidak terpengaruh narasi provokatif yang berpotensi memecah persatuan.", score: 5 },
+                    B: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    D: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    E: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 }
+                }
+            },
+{
+                id: 48, dim: "Kewaspadaan Radikalisme", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait netralitas ASN, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 3 },
+                    B: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 4 },
+                    C: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    D: { txt: "Ikut menyebarkan opini yang belum terverifikasi karena merasa narasi tersebut sesuai dengan pandangan kelompok tertentu.", score: 2 },
+                    E: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 }
+                }
+            },
+{
+                id: 49, dim: "Pancasila", flag: "E",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait integritas pengadaan, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 4 },
+                    B: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 2 },
+                    C: { txt: "Memilih tidak terlalu terlibat agar hubungan kerja dan situasi lingkungan tetap kondusif meskipun persoalan tersebut belum sepenuhnya selesai.", score: 3 },
+                    D: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    E: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 1 }
+                }
+            },
+{
+                id: 50, dim: "UUD 1945", flag: "B",
+                stem: "Dalam pelaksanaan tugas kedinasan terkait isu separatisme, Anda menghadapi situasi di mana beberapa pihak mencoba memengaruhi keputusan melalui pendekatan personal, tekanan sosial, dan opini publik digital. Kondisi tersebut membuat sebagian rekan memilih bersikap pasif agar tidak terlibat konflik. Di sisi lain, keputusan yang diambil berpotensi memengaruhi citra institusi serta kepercayaan masyarakat terhadap integritas aparatur negara. Sebagai personel yang ikut terlibat dalam proses penanganan situasi tersebut, tindakan yang paling tepat adalah...",
+                opts: {
+                    A: { txt: "Menyelesaikan persoalan secara informal dan tertutup agar tidak berkembang menjadi isu besar di lingkungan kerja maupun media sosial.", score: 4 },
+                    B: { txt: "Menganggap persoalan tersebut bukan tanggung jawab pribadi sehingga tidak perlu ditindaklanjuti lebih lanjut.", score: 1 },
+                    C: { txt: "Menindaklanjuti situasi secara profesional, menjaga prosedur kedinasan, serta memastikan keputusan tetap berpihak pada hukum, persatuan bangsa, dan kepentingan negara.", score: 5 },
+                    D: { txt: "Mengutamakan loyalitas kelompok/pertemanan dibanding ketentuan resmi organisasi dan kepentingan negara.", score: 2 },
+                    E: { txt: "Menunggu arahan pimpinan terlebih dahulu sebelum mengambil langkah lebih jauh karena khawatir tindakan pribadi dianggap melampaui kewenangan.", score: 3 }
+                }
+            }
+        ];
+
+        let activeQuestions = [...sourceQuestions].sort(() => Math.random() - 0.5);
+        let currentIdx = 0;
+        let userAnswers = {};
+        let examTimer;
+        let remainingTime = 50 * 60;
+
+        function startExam() {
+            const nameInput = document.getElementById("student-name").value.trim();
+            if (!nameInput) {
+                alert("Harap masukkan nama Anda terlebih dahulu!");
+                return;
+            }
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("main-cat-screen").style.display = "block";
+            buildGridMap();
+            showQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            examTimer = setInterval(() => {
+                remainingTime--;
+                let mins = Math.floor(remainingTime / 60);
+                let secs = remainingTime % 60;
+                document.getElementById("txt-timer").innerText = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (remainingTime <= 0) evaluateAndSubmit();
+            }, 1000);
+        }
+
+        function buildGridMap() {
+            let area = document.getElementById("grid-map-area");
+            area.innerHTML = "";
+            activeQuestions.forEach((q, i) => {
+                let btn = document.createElement("div");
+                btn.className = "grid-item";
+                btn.id = `grid-btn-${i}`;
+                btn.innerText = (i + 1).toString().padStart(2, '0');
+                btn.onclick = () => { showQuestion(i); window.scrollTo(0, 100); };
+                area.appendChild(btn);
+            });
+        }
+
+        function showQuestion(idx) {
+            currentIdx = idx;
+            const q = activeQuestions[idx];
+            
+            document.getElementById("txt-number").innerText = `KASUS ${ (idx + 1).toString().padStart(2, '0') } DARI ${activeQuestions.length}`;
+            document.getElementById("txt-dimensi").innerText = `DIMENSI: ${q.dim.toUpperCase()}`;
+            document.getElementById("txt-stem").innerText = q.stem;
+            
+            let container = document.getElementById("options-container");
+            container.innerHTML = "";
+            
+            const optKeys = ['A', 'B', 'C', 'D', 'E'];
+            optKeys.forEach((key) => {
+                let optData = q.opts[key];
+                let isChecked = userAnswers[q.id] === key ? "checked" : "";
+                let isSelectedClass = userAnswers[q.id] === key ? "selected" : "";
+                
+                container.innerHTML += `
+                    <label class="sjt-option-item ${isSelectedClass}" onclick="selectOption('${q.id}', '${key}', ${idx})">
+                        <input type="radio" name="sjt_opt_${q.id}" value="${key}" ${isChecked}>
+                        <span class="sjt-option-text"><b>${key}.</b> ${optData.txt}</span>
+                    </label>
+                `;
+            });
+            
+            activeQuestions.forEach((item, k) => {
+                let element = document.getElementById(`grid-btn-${k}`);
+                if (element) {
+                    element.className = "grid-item";
+                    if (userAnswers[item.id]) element.classList.add("answered");
+                    if (k === idx) element.classList.add("current");
+                }
+            });
+
+            let btnNext = document.getElementById("btn-next");
+            if (idx === activeQuestions.length - 1) {
+                btnNext.innerText = "SELESAI";
+                btnNext.style.background = "var(--success)";
+                btnNext.style.borderColor = "var(--success)";
+                btnNext.style.color = "white";
+            } else {
+                btnNext.innerText = "Selanjutnya";
+                btnNext.style.background = "var(--primary)";
+                btnNext.style.borderColor = "var(--accent)";
+                btnNext.style.color = "var(--accent)";
+            }
+        }
+
+        function selectOption(qId, key, idx) {
+            userAnswers[qId] = key;
+            let mapBtn = document.getElementById(`grid-btn-${idx}`);
+            if(mapBtn) mapBtn.classList.add('answered');
+
+            if (currentIdx < activeQuestions.length - 1) {
+                setTimeout(() => { showQuestion(currentIdx + 1); }, 150);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < activeQuestions.length - 1) {
+                showQuestion(currentIdx + 1);
+            } else {
+                confirmSubmit();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                showQuestion(currentIdx - 1);
+            }
+        }
+
+        function confirmSubmit() {
+            let answeredCount = Object.keys(userAnswers).length;
+            if (answeredCount < activeQuestions.length) {
+                if(!confirm(`Kamu baru mengisi ${answeredCount} kasus. Tetap kumpulkan latihan AMI/PMK Seri B ini?`)) return;
+            } else {
+                if(!confirm("Apakah Anda yakin ingin memproses nilai evaluasi Seri B ini?")) return;
+            }
+            evaluateAndSubmit();
+        }
+
+        function evaluateAndSubmit() {
+            clearInterval(examTimer);
+            let totalAccumulatedPoints = 0;
+            let isRedFlagged = false;
+            let reviewHtml = "";
+
+            let dimScores = {
+                "Pancasila": { get: 0, max: 0 },
+                "UUD 1945": { get: 0, max: 0 },
+                "NKRI & Bela Negara": { get: 0, max: 0 },
+                "Bhinneka Tunggal Ika": { get: 0, max: 0 },
+                "Kewaspadaan Radikalisme": { get: 0, max: 0 },
+                "Bersih Diri & Loyalitas": { get: 0, max: 0 }
+            };
+
+            const sortedForReview = [...activeQuestions].sort((a,b) => a.id - b.id);
+
+            sortedForReview.forEach((q, i) => {
+                const selectedKey = userAnswers[q.id];
+                let optScore = 0;
+                let textJawaban = "Tidak Memberikan Respon (Skor Minimal)";
+                
+                let bestKey = "";
+                for (let key in q.opts) {
+                    if (q.opts[key].score === 5) {
+                        bestKey = key;
+                        break;
+                    }
+                }
+                let textKunciBenar = `${bestKey}. ${q.opts[bestKey].txt}`;
+
+                if (selectedKey) {
+                    optScore = q.opts[selectedKey].score;
+                    textJawaban = `${selectedKey}. ${q.opts[selectedKey].txt}`;
+                    if (selectedKey === q.flag) isRedFlagged = true;
+                } else {
+                    optScore = 2; 
+                }
+
+                totalAccumulatedPoints += optScore;
+
+                if (dimScores[q.dim]) {
+                    dimScores[q.dim].get += optScore;
+                    dimScores[q.dim].max += 5;
+                }
+
+                reviewHtml += `
+                    <div class="review-card" style="border-left-color: ${optScore === 5 ? 'var(--success)' : optScore >= 3 ? 'var(--accent)' : 'var(--danger)'}">
+                        <div><b>KASUS ${i + 1}:</b> <span>${q.stem}</span></div>
+                        <div class="review-meta">Dimensi: ${q.dim}</div>
+                        
+                        <div class="review-section-title" style="color: var(--primary);">Respon Anda:</div>
+                        <div style="color: ${optScore === 1 ? 'var(--danger)' : '#334155'}; font-weight:600;">${textJawaban}</div>
+                        
+                        <div class="review-section-title" style="color: var(--success);">Kunci Terbaik (Skor 5):</div>
+                        <div style="color: #117A65; font-weight:600;">${textKunciBenar}</div>
+                        
+                        <div style="margin-top: 6px; background: #F8FAFC; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; display: inline-block; border: 1px solid #E2E8F0;">
+                            Bobot Nilai: <b style="color:${optScore >= 4 ? 'var(--success)' : 'var(--danger)'};">+${optScore}</b> Poin.
+                        </div>
+                    </div>
+                `;
+            });
+
+            const finalScore = Math.round((totalAccumulatedPoints / 125) * 100);
+
+            let tableBody = document.getElementById("dimension-table-body");
+            tableBody.innerHTML = "";
+            for (let dimName in dimScores) {
+                let data = dimScores[dimName];
+                let percent = Math.round((data.get / data.max) * 100);
+                
+                let statusBadge = "";
+                if (percent >= 80) {
+                    statusBadge = "<span class='badge-dim-status' style='background:#E8F8F5; color:#117A65;'>SANGAT KUAT</span>";
+                } else if (percent >= 65) {
+                    statusBadge = "<span class='badge-dim-status' style='background:#EAF2F8; color:#2471A3;'>CUKUP KUAT</span>";
+                } else {
+                    statusBadge = "<span class='badge-dim-status' style='background:#FDEDEC; color:#CB4335;'>PERLU ATENSI</span>";
+                }
+
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${dimName}</td>
+                        <td>${percent} / 100</td>
+                        <td>${statusBadge}</td>
+                    </tr>
+                `;
+            }
+
+            let kategoriStr = "";
+            let analisisStr = "";
+            let saranStr = "";
+
+            if (finalScore >= 80) {
+                kategoriStr = "<span style='color: var(--success);'>IDEOLOGI NEGARA MATANG (MEMENUHI SYARAT)</span>";
+                analisisStr = "Respon tindakan yang dipilih mencerminkan pemahaman integritas kebangsaan yang sangat kuat. Calon konsisten menempatkan hukum negara dan keselamatan NKRI di atas kepentingan pribadi/golongan serta memiliki benteng ideologi yang kokoh dari infiltrasi luar.";
+                saranStr = "Pertahankan konsistensi pola berpikir ini. Pada seleksi wawancara dinas ril, pertahankan argumentasi tegas yang memihak penuh pada aturan tertulis kesatuan dan Pancasila.";
+            } else if (finalScore >= 65) {
+                kategoriStr = "<span style='color: #2471A3;'>NASIONALISME CUKUP (BUTUH PENGUATAN)</span>";
+                analisisStr = "Cara pandang kebangsaan sudah mengarah pada kesetiaan negara, namun calon masih menunjukkan toleransi atau keraguan pada studi kasus dilematis yang melibatkan relasi senioritas, kekeluargaan adat, atau konflik kepentingan kerja harian.";
+                saranStr = "Pelajari kembali lembar evaluasi koreksi di bawah. Tekankan pada prinsip bahwa loyalitas Abdi Negara bersifat tunggal, mutlak, dan lurus tanpa kompromi kepada pelanggaran falsafah bangsa.";
+            } else {
+                kategoriStr = "<span style='color: #CB4335;'>BELUM MEMENUHI SYARAT KEBANGSAAN</span>";
+                analisisStr = "Pilihan tindakan calon banyak yang mengabaikan aspek kerahasiaan negara, permisif terhadap indikasi doktrin radikal terselubung, atau lebih mengutamakan keselamatan posisi personal dibanding penegakan prosedur hukum pertahanan.";
+                saranStr = "Wajib melakukan pendalaman materi, bimbingan intensif, serta bedah tuntas studi kasus bersama tutor pendamping untuk meluruskan pemahaman bela negara.";
+            }
+
+            if (isRedFlagged) {
+                document.getElementById("red-flag-box").style.display = "block";
+                kategoriStr += " <br><b style='color:#A93226; font-size:0.75rem;'>[ALERTI: REKOMENDASI PEMANTAUAN KHUSUS]</b>";
+            } else {
+                document.getElementById("red-flag-box").style.display = "none";
+            }
+
+            document.getElementById("main-cat-screen").style.display = "none";
+            document.getElementById("result-screen").style.display = "block";
+
+            const studentName = document.getElementById("student-name").value.toUpperCase();
+            document.getElementById("res-name").innerText = "NAMA CALON SISWA: " + studentName;
+            document.getElementById("res-skor-akhir").innerText = finalScore;
+            
+            document.getElementById("txt-kategori").innerHTML = kategoriStr;
+            document.getElementById("txt-analisis").innerText = analisisStr;
+            document.getElementById("txt-saran").innerText = saranStr;
+
+            document.getElementById("review-list").innerHTML = reviewHtml;
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
