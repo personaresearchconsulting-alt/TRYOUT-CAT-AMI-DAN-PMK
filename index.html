@@ -144,7 +144,7 @@ background:#333333;
 box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
-/* NEW PREMIUM DASHBOARD LAYOUT */
+/* PREMIUM DASHBOARD LAYOUT */
 #dashboard{
 max-width: 1200px;
 margin: 0 auto;
@@ -268,7 +268,7 @@ border-radius:22px;
 text-align:left;
 cursor:pointer;
 transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-background:#2a2f35; /* Abu-abu Tua Solid */
+background:#2a2f35;
 border:1px solid #1e2226;
 color:#ffffff;
 box-shadow:0 4px 15px rgba(0,0,0,.04);
@@ -303,7 +303,7 @@ padding-right: 20px;
 
 .menu-card small{
 font-size:11.5px;
-color:#b0b7bd; /* Abu kontras terang */
+color:#b0b7bd;
 letter-spacing:.2px;
 font-weight:400;
 margin-top:10px;
@@ -314,14 +314,14 @@ display: block;
 /* HOVER EFFECT */
 .menu-card:hover{
 transform:translateY(-5px);
-background:#1c1f24 !important; /* Berubah menjadi jauh lebih gelap tegas */
+background:#1c1f24 !important;
 box-shadow:0 12px 28px rgba(0,0,0,.16) !important;
 border-color: #111316;
 }
 
 /* EXCLUSIVE BLACK CARD FOR BUKU SAKU */
 .menu-card.pdf-card {
-background:#111111; /* Hitam Jet Black */
+background:#111111;
 border-color:#000000;
 }
 .menu-card.pdf-card small {
@@ -464,22 +464,21 @@ margin-top: 40px;
 </footer>
 
 <script>
-// MEMBERSIHKAN FORCE SESSION LAMA BIAR LAYOUT BARU LANGSUNG KELUAR
-localStorage.clear();
+// FORCE CLEAR UNTUK MEMBERSIHKAN LAYOUT LAMA SAAT REFRESH PERTAMA
+if(!localStorage.getItem("layoutCleaned_v2")){
+    localStorage.clear();
+    localStorage.setItem("layoutCleaned_v2", "true");
+}
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXC1m2C3j5RyBg9uNNjdcB7WZpSntBT_F_AcOv0mtfluMdxLhHyCp4N3pQi8mEeuZy/exec";
 
+// KUMPULAN 50 PASSWORD BARU - HANYA 6 DERET KARAKTER (CASE-INSENSITIVE)
 const passwordList = [
-"A7B9PRCX1N", "K2W5PRCY7M", "M9R3PRCZ4L", "X8Q1PRCB2K", "L4P7PRCV9J",
-"J3N6PRCH5H", "H5T2PRCF3G", "V1Z8PRCD9F", "F6Y3PRCB4D", "D2G9PRCN1B",
-"B4X7PRCP9V", "N1V8PRCR3K", "P9K2PRCT5M", "R3M6PRCZ8J", "T5J2PRCY3W",
-"Z8W1PRCG9F", "Y3F6PRCC4D", "G9D2PRCW1X", "C4X8PRCQ8V", "W1V7PRCL2R",
-"Q8R3PRCK6P", "L2P9PRCJ7M", "K6M4PRCH2N", "J7N3PRCF9T", "H2T5PRCD4Y",
-"F9Y1PRCB8G", "D4G6PRCN3X", "B8X2PRCP1V", "N3V9PRCS5K", "P1K7PRCU9A",
-"S5A2PRCC3E", "U9E1PRCE8H", "C3H7PRCG4T", "E8T2PRCL9W", "G4W6PRCX2K",
-"L9K1PRCM5Y", "X2Y7PRCR8N", "M5N3PRCV3P", "R8P4PRCF1Z", "V3Z9PRCD9B",
-"F1B7PRCJ4H", "D9H2PRCT2K", "J4K6PRCQ5W", "T2W8PRCA3M", "Q5M1PRCN7B",
-"A3B9PRCK4P", "N7P2PRCR1X", "K4X8PRCH9Z", "R1Z7PRCF3F", "H9F3PRCB2D"
+"PRC1A2", "PRC3B4", "PRC5C6", "PRD7X8", "PRC9Y1", "PRC2Z3", "PRC4K5", "PRC6L7", "PRC8M9", "PRC1N2",
+"PRC3P4", "PRC5Q6", "PRC7R8", "PRC9S1", "PRC2T3", "PRC4V5", "PRC6W7", "PRC8X9", "PRC1Y2", "PRC3Z4",
+"PRC5A6", "PRC7B8", "PRC9C1", "PRD2D3", "PRC4E5", "PRC6F7", "PRC8G9", "PRC1H2", "PRC3J4", "PRC5K6",
+"PRC7L8", "PRC9M1", "PRC2N3", "PRC4P5", "PRC6Q7", "PRC8R9", "PRC1S2", "PRC3T4", "PRC5U6", "PRC7V8",
+"PRC9W1", "PRC2X3", "PRC4Y5", "PRC6Z7", "PRC8A9", "PRC1B2", "PRC3C4", "PRC5D6", "PRC7E8", "PRC9F1"
 ];
 
 const loginBtn = document.getElementById("loginBtn");
@@ -519,7 +518,9 @@ setTimeout(()=>{ popup.classList.add("hidden"); },2500);
 loginBtn.addEventListener("click",loginSystem);
 
 async function loginSystem(){
-const input = passwordInput.value.trim();
+// Mengubah input menjadi HURUF BESAR SEMUA agar support huruf kecil & besar
+const input = passwordInput.value.trim().toUpperCase();
+
 if(!passwordList.includes(input)){
 showPopup("Password salah.");
 return;
@@ -558,7 +559,8 @@ startCountdown(Number(firstLoginTime));
 let countdownInterval=null;
 function startCountdown(firstLoginTime){
 clearInterval(countdownInterval);
-countdownInterval=setInterval(()=>{\nconst end = firstLoginTime + (30*24*60*60*1000);
+countdownInterval=setInterval(()=>{
+const end = firstLoginTime + (30*24*60*60*1000);
 const diff = end - Date.now();
 
 if(diff <= 0){
@@ -574,6 +576,12 @@ const hours=Math.floor((diff/(1000*60*60))%24);
 const minutes=Math.floor((diff/(1000*60))%60);
 countdown.innerText=`Sisa Aktif: ${days}H ${hours}J ${minutes}M`;
 },1000);
+}
+
+const loggedUser = localStorage.getItem("loggedInUser");
+const localFirstLogin = localStorage.getItem("userFirstLogin");
+if(loggedUser && localFirstLogin && passwordList.includes(loggedUser.toUpperCase())){
+openDashboard(loggedUser.toUpperCase(), localFirstLogin);
 }
 
 document.getElementById("logoutBtn").addEventListener("click",()=>{
