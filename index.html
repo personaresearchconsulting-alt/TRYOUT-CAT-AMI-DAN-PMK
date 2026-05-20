@@ -12,10 +12,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
+/* CSS RESET & BASE */
 *{
 margin:0;
 padding:0;
@@ -24,16 +24,17 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#fcfbf7; /* Kombinasi Soft Cream/Off-white */
+background:#fcfbf7; /* Soft Cream */
 min-height:100vh;
 overflow-x:hidden;
-color:#1a1a1a; /* Hitam Solid Lembut */
+color:#1a1a1a;
 }
 
 .hidden{
 display:none !important;
 }
 
+/* LOADING SCREEN */
 #loadingScreen{
 position:fixed;
 inset:0;
@@ -59,6 +60,7 @@ margin-bottom:18px;
 100%{ transform:rotate(360deg); }
 }
 
+/* LOGIN LAYOUT */
 .center-page{
 min-height:100vh;
 display:flex;
@@ -67,100 +69,112 @@ align-items:center;
 padding:20px;
 }
 
-.glass{
-background:#ffffff;
-border:1px solid #e5e5e0;
-box-shadow:0 10px 30px -5px rgba(0,0,0,.05);
-}
-
 .login-card{
 width:100%;
-max-width:450px;
-padding:40px;
-border-radius:25px;
+max-width:460px;
+padding:45px 40px;
+border-radius:28px;
 text-align:center;
-animation:fade .5s ease;
+background:#ffffff;
+border:1px solid #e5e5e0;
+box-shadow:0 15px 35px -5px rgba(0,0,0,.05);
+animation:fadeUp .5s ease-out;
 }
 
-@keyframes fade{
-from{ opacity:0; transform:translateY(20px); }
+@keyframes fadeUp{
+from{ opacity:0; transform:translateY(30px); }
 to{ opacity:1; transform:translateY(0); }
 }
 
 .login-card h1{
-font-size:24px;
-margin-bottom:12px;
+font-size:26px;
+margin-bottom:8px;
 color:#1a1a1a;
-font-weight:600;
+font-weight:700;
 line-height:1.3;
 }
 
 .subtitle{
-opacity:.7;
-margin-bottom:30px;
+opacity:.6;
+margin-bottom:35px;
 color:#1a1a1a;
-letter-spacing:1px;
-font-weight:500;
-font-size:14px;
+letter-spacing:1.5px;
+font-weight:600;
+font-size:13px;
 }
 
 input{
 width:100%;
-padding:15px;
-border:1px solid #e5e5e0;
+padding:16px;
+border:2px solid #e5e5e0;
 outline:none;
-border-radius:14px;
+border-radius:16px;
 margin-bottom:20px;
 font-size:15px;
 background:#fdfcf9;
 color:#1a1a1a;
 text-align:center;
+transition: .3s;
+font-weight: 500;
 }
 
 input:focus{
 border-color:#1a1a1a;
 background:#ffffff;
-}
-
-button{
-border:none;
-cursor:pointer;
-transition:.3s;
+box-shadow: 0 0 0 4px rgba(26,26,26,0.05);
 }
 
 .login-btn{
 width:100%;
-padding:15px;
+padding:16px;
 background:#1a1a1a;
 color:#ffffff;
-border-radius:14px;
+border-radius:16px;
 font-size:16px;
 font-weight:600;
+border:none;
+cursor:pointer;
+transition:.3s;
 letter-spacing:0.5px;
 }
 
 .login-btn:hover{
 transform:translateY(-3px);
 background:#333333;
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
+/* NEW PREMIUM DASHBOARD LAYOUT */
 #dashboard{
-padding:30px;
+max-width: 1200px;
+margin: 0 auto;
+padding: 40px 24px;
 }
 
-.topbar{
+.main-header{
+background: #ffffff;
+padding: 30px;
+border-radius: 24px;
+border: 1px solid #e5e5e0;
+box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+margin-bottom: 30px;
+}
+
+.header-top{
 display:flex;
 justify-content:space-between;
 align-items:center;
 gap:20px;
 flex-wrap:wrap;
-margin-bottom:30px;
-border-bottom:2px solid #e5e5e0;
-padding-bottom:20px;
 }
 
-.top-right{
+.header-top h2 {
+font-size: 24px;
+font-weight: 700;
+color: #1a1a1a;
+}
+
+.header-right{
 display:flex;
 align-items:center;
 gap:15px;
@@ -168,72 +182,153 @@ flex-wrap:wrap;
 }
 
 .count-box{
-padding:15px 20px;
-border-radius:15px;
+padding:12px 20px;
+border-radius:14px;
 background:#f4f1ea;
 color:#1a1a1a;
 font-weight:600;
+font-size: 14px;
 border:1px solid #e5e5e0;
+display: flex;
+align-items: center;
+gap: 8px;
 }
 
 .logout-btn{
-padding:14px 20px;
+padding:12px 22px;
 background:#1a1a1a;
 color:white;
-border-radius:12px;
+border-radius:14px;
 font-weight:500;
+font-size: 14px;
+border:none;
+cursor:pointer;
+transition:.3s;
 }
 
 .logout-btn:hover{
 background:#f44336;
+box-shadow: 0 4px 12px rgba(244,67,54,0.2);
 }
 
+/* RUNNING TEXT NOTICE BAR */
+.notice-bar {
+background: #2a2f35;
+color: #ffffff;
+padding: 8px 20px;
+border-radius: 12px;
+margin-top: 20px;
+font-size: 12px;
+font-weight: 500;
+overflow: hidden;
+white-space: nowrap;
+border: 1px solid #1e2226;
+}
+
+.notice-bar marquee {
+vertical-align: middle;
+}
+
+/* CATEGORY SEPARATORS */
+.cat-wrapper {
+margin-bottom: 40px;
+}
+
+.cat-title {
+font-size: 14px;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: #555555;
+font-weight: 700;
+margin-bottom: 20px;
+padding-left: 5px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.cat-title::after {
+content: '';
+flex: 1;
+height: 1px;
+background: #e5e5e0;
+}
+
+/* CARDS GRID SYSTEM */
 .menu-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
 }
 
+/* CARD LAYOUT: DARK PREMIUM CHARCOAL */
 .menu-card{
-padding:35px 20px;
+padding:30px 24px;
 border-radius:22px;
-text-align:center;
-font-weight:600;
-font-size:16px;
+text-align:left;
 cursor:pointer;
-transition:.25s;
-background:#ffffff;
-border:1px solid #e5e5e0;
-color:#1a1a1a;
-box-shadow:0 4px 15px rgba(0,0,0,.02);
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+background:#2a2f35; /* Abu-abu Tua Solid */
+border:1px solid #1e2226;
+color:#ffffff;
+box-shadow:0 4px 15px rgba(0,0,0,.04);
 display:flex;
 flex-direction:column;
 justify-content:center;
-align-items:center;
-gap:5px;
+position: relative;
+overflow: hidden;
+}
+
+.menu-card::after {
+content: '➔';
+position: absolute;
+right: 25px;
+bottom: 25px;
+font-size: 18px;
+color: rgba(255, 255, 255, 0.15);
+transition: 0.3s;
+}
+
+.menu-card:hover::after {
+color: #ffffff;
+transform: translateX(5px);
+}
+
+.menu-card span {
+font-size: 16px;
+font-weight: 600;
+line-height: 1.4;
+padding-right: 20px;
 }
 
 .menu-card small{
-font-size:11px;
-color:#777777;
-letter-spacing:.5px;
-text-transform:uppercase;
+font-size:11.5px;
+color:#b0b7bd; /* Abu kontras terang */
+letter-spacing:.2px;
 font-weight:400;
-margin-top:4px;
+margin-top:10px;
+line-height: 1.5;
+display: block;
 }
 
+/* HOVER EFFECT */
 .menu-card:hover{
 transform:translateY(-5px);
-background:#fdfcf9;
-border-color:#1a1a1a;
-box-shadow:0 10px 20px rgba(0,0,0,.05);
+background:#1c1f24 !important; /* Berubah menjadi jauh lebih gelap tegas */
+box-shadow:0 12px 28px rgba(0,0,0,.16) !important;
+border-color: #111316;
 }
 
+/* EXCLUSIVE BLACK CARD FOR BUKU SAKU */
 .menu-card.pdf-card {
-background:#fbf9f3;
-border-color:#dcd8cd;
+background:#111111; /* Hitam Jet Black */
+border-color:#000000;
+}
+.menu-card.pdf-card small {
+color: #858585;
 }
 
+/* POPUP NOTIFICATION */
 .popup{
 position:fixed;
 top:30px;
@@ -248,19 +343,23 @@ z-index:9999;
 
 footer{
 text-align:center;
-padding:40px 30px;
-color:#777777;
-font-size:14px;
-border-top:1px solid #e5e5e0;
-margin-top:40px;
+padding:60px 30px 30px 30px;
+color:#888888;
+font-size:13px;
+letter-spacing: 1px;
+font-weight: 500;
+border-top: 1px solid #e5e5e0;
+margin-top: 40px;
 }
 
+/* RESPONSIVE BREAKPOINTS */
 @media(max-width:768px){
-.login-card{ padding:30px 22px; }
-.login-card h1{ font-size:20px; }
-#dashboard{ padding:20px; }
+.login-card{ padding:35px 24px; border-radius: 22px; }
+.login-card h1{ font-size:22px; }
+#dashboard{ padding:20px 16px; }
+.main-header { padding: 20px; border-radius: 18px; }
+.menu-grid { grid-template-columns: 1fr; }
 }
-
 </style>
 </head>
 
@@ -272,62 +371,88 @@ margin-top:40px;
 </div>
 
 <section id="loginPage" class="center-page">
-<div class="glass login-card">
+<div class="login-card">
 <h1>TRYOUT SIMULASI CAT<br>AMI & PMK</h1>
 <p class="subtitle">PERSONA RESEARCH & CONSULTING</p>
-<input type="password" id="passwordInput" placeholder="Masukkan Password">
-<button class="login-btn" id="loginBtn">LOGIN</button>
+<input type="password" id="passwordInput" placeholder="Masukkan Kata Sandi Akses">
+<button class="login-btn" id="loginBtn">MASUK KE DASHBOARD</button>
 </div>
 </section>
 
 <section id="dashboard" class="hidden">
-<div class="topbar">
+<div class="main-header">
+<div class="header-top">
 <div>
-<h2>TRYOUT MENU – PAKET SELEKSI</h2>
-<p id="welcomeText" style="color:#777777;margin-top:4px;"></p>
+<h2>Sistem CAT Tryout Mandiri</h2>
+<p id="welcomeText" style="color:#666666; margin-top:4px; font-size: 14px;"></p>
 </div>
-<div class="top-right">
-<div class="count-box" id="countdown">Loading...</div>
-<button class="logout-btn" id="logoutBtn">Logout</button>
+<div class="header-right">
+<div class="count-box" id="countdown">Memuat Sisa Waktu...</div>
+<button class="logout-btn" id="logoutBtn">Keluar</button>
+</div>
+</div>
+<div class="notice-bar">
+<marquee scrollamount="4">📢 PENGUMUMAN: Silakan pelajari Materi Buku Saku terlebih dahulu sebelum memulai pengerjaan modul tryout untuk hasil analisis kompetensi yang maksimal.</marquee>
 </div>
 </div>
 
+<div class="cat-wrapper">
+<div class="cat-title">Materi Utama & Doktrin Dasar</div>
 <div class="menu-grid">
 <div class="menu-card pdf-card" data-link="Buku_Saku_AMI_PMK_Revisi_Final.pdf">
 <span>📖 BUKU SAKU AMI & PMK</span>
-<small>Panduan Strategi & Teori Dasar</small>
+<small>Strategi pengerjaan taktis, ringkasan nilai batas kelulusan, dan intisari dimensi penilaian wawancara.</small>
 </div>
+</div>
+</div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Asesmen Mental Ideologi 1</div>
+<div class="menu-grid">
 <div class="menu-card" data-link="ami_1.html">
-<span>ASESMEN MENTAL IDEOLOGI 1</span>
-<small>Evaluasi & Wawasan Kebangsaan</small>
+<span>🛡️ ASESMEN MENTAL IDEOLOGI 1</span>
+<small>Uji wawasan kebangsaan, materi bela negara, pemahaman Pancasila, dan respon isu kritis kenegaraan.</small>
 </div>
 <div class="menu-card" data-link="ami_3.html">
-<span>ASESMEN MENTAL IDEOLOGI 3</span>
-<small>Pendalaman Prinsip & Doktrin</small>
+<span>🛡️ ASESMEN MENTAL IDEOLOGI 2</span>
+<small>Pendalaman doktrin, uji konsistensi sikap bernegara, dan penyelarasan prinsip integritas diri.</small>
 </div>
-<div class="menu-card" data-link="ami_pmk.html">
-<span>INTEGRASI AMI & PMK STRATEGI</span>
-<small>Kombinasi Karakter & Ideologi</small>
 </div>
-<div class="menu-card" data-link="ami_pmk_b.html">
-<span>INTEGRASI AMI & PMK PAKET B</span>
-<small>Simulasi Penguatan Mental Khusus</small>
 </div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Penelusuran Mental Kepribadian (PMK)</div>
+<div class="menu-grid">
 <div class="menu-card" data-link="pmk_1.html">
-<span>PMK PERSONALITY INVENTORY 1</span>
-<small>Aspek Loyalitas & Integritas Diri</small>
+<span>👤 PMK PERSONALITY INVENTORY 1</span>
+<small>Pemetaan aspek kestabilan emosi operasional, loyalitas organisasi, dan grafik potensi pelanggaran disiplin.</small>
 </div>
 <div class="menu-card" data-link="pmk_2.html">
-<span>PMK PERSONALITY INVENTORY 2</span>
-<small>Aspek Penyesuaian Sosial & Konflik</small>
+<span>👤 PMK PERSONALITY INVENTORY 2</span>
+<small>Aspek kemampuan adaptasi sosial, kepemimpinan, kendali sosiopsikologis, dan resolusi konflik.</small>
+</div>
+</div>
+</div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Integrasi Sistem & Situational Judgement</div>
+<div class="menu-grid">
+<div class="menu-card" data-link="ami_pmk.html">
+<span>🔄 INTEGRASI AMI & PMK 1</span>
+<small>Uji sinkronisasi silang antara integritas kepribadian dengan kepatuhan ideologi kedinasan.</small>
+</div>
+<div class="menu-card" data-link="ami_pmk_b.html">
+<span>🔄 INTEGRASI AMI & PMK 2</span>
+<small>Paket pengkondisian mental khusus dengan tingkat kompleksitas penalaran kasus yang diperluas.</small>
 </div>
 <div class="menu-card" data-link="stj_ami_pmk_1.html">
-<span>SITUATIONAL JUDGEMENT TEST 1</span>
-<small>Studi Kasus & Dilema Keputusan</small>
+<span>📊 SITUATIONAL JUDGEMENT TEST 1</span>
+<small>Simulasi dilema moral dunia kerja operasional dan penilaian ketepatan pengambilan keputusan.</small>
 </div>
 <div class="menu-card" data-link="stj_ami_pmk_2.html">
-<span>SITUATIONAL JUDGEMENT TEST 2</span>
-<small>Validasi Konsistensi Sikap Mental</small>
+<span>📊 SITUATIONAL JUDGEMENT TEST 2</span>
+<small>Validasi konsistensi profil jawaban guna mendeteksi kecenderungan manipulasi data (faking).</small>
+</div>
 </div>
 </div>
 </section>
@@ -335,7 +460,7 @@ margin-top:40px;
 <div id="popup" class="popup hidden"></div>
 
 <footer>
-© PERSONA RESEARCH & CONSULTING
+&copy; PERSONA RESEARCH & CONSULTING 087742515786 &bull; ALL RIGHTS RESERVED
 </footer>
 
 <script>
@@ -424,7 +549,7 @@ function openDashboard(user, firstLoginTime){
 loginPage.classList.add("hidden");
 dashboard.classList.remove("hidden");
 loadingScreen.style.display = "none";
-welcomeText.innerHTML=`Login sebagai: <b>${user}</b>`;
+welcomeText.innerHTML=`Peserta Aktif: <b>${user}</b>`;
 startCountdown(Number(firstLoginTime));
 }
 
@@ -446,7 +571,7 @@ return;
 const days=Math.floor(diff/(1000*60*60*24));
 const hours=Math.floor((diff/(1000*60*60))%24);
 const minutes=Math.floor((diff/(1000*60))%60);
-countdown.innerText=`${days}H ${hours}J ${minutes}M`;
+countdown.innerText=`Sisa Aktif: ${days}H ${hours}J ${minutes}M`;
 },1000);
 }
 
