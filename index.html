@@ -1,1 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>TRYOUT SIMULASI CAT AMI & PMK</title>
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* CSS RESET & BASE */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#fcfbf7; /* Soft Cream */
+min-height:100vh;
+overflow-x:hidden;
+color:#1a1a1a;
+}
+
+.hidden{
+display:none !important;
+}
+
+/* LOADING SCREEN */
+#loadingScreen{
+position:fixed;
+inset:0;
+background:#ffffff;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.loader{
+width:60px;
+height:60px;
+border-radius:50%;
+border:5px solid rgba(26,26,26,.1);
+border-top:5px solid #1a1a1a;
+animation:spin .8s linear infinite;
+margin-bottom:18px;
+}
+
+@keyframes spin{
+100%{ transform:rotate(360deg); }
+}
+
+/* LOGIN LAYOUT */
+.center-page{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.login-card{
+width:100%;
+max-width:460px;
+padding:45px 40px;
+border-radius:28px;
+text-align:center;
+background:#ffffff;
+border:1px solid #e5e5e0;
+box-shadow:0 15px 35px -5px rgba(0,0,0,.05);
+animation:fadeUp .5s ease-out;
+}
+
+@keyframes fadeUp{
+from{ opacity:0; transform:translateY(30px); }
+to{ opacity:1; transform:translateY(0); }
+}
+
+.login-card h1{
+font-size:26px;
+margin-bottom:8px;
+color:#1a1a1a;
+font-weight:700;
+line-height:1.3;
+}
+
+.subtitle{
+opacity:.6;
+margin-bottom:35px;
+color:#1a1a1a;
+letter-spacing:1.5px;
+font-weight:600;
+font-size:13px;
+}
+
+input{
+width:100%;
+padding:16px;
+border:2px solid #e5e5e0;
+outline:none;
+border-radius:16px;
+margin-bottom:20px;
+font-size:15px;
+background:#fdfcf9;
+color:#1a1a1a;
+text-align:center;
+transition: .3s;
+font-weight: 500;
+}
+
+input:focus{
+border-color:#1a1a1a;
+background:#ffffff;
+box-shadow: 0 0 0 4px rgba(26,26,26,0.05);
+}
+
+.login-btn{
+width:100%;
+padding:16px;
+background:#1a1a1a;
+color:#ffffff;
+border-radius:16px;
+font-size:16px;
+font-weight:600;
+border:none;
+cursor:pointer;
+transition:.3s;
+letter-spacing:0.5px;
+}
+
+.login-btn:hover{
+transform:translateY(-3px);
+background:#333333;
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+/* NEW PREMIUM DASHBOARD LAYOUT */
+#dashboard{
+max-width: 1200px;
+margin: 0 auto;
+padding: 40px 24px;
+}
+
+.main-header{
+background: #ffffff;
+padding: 30px;
+border-radius: 24px;
+border: 1px solid #e5e5e0;
+box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+margin-bottom: 30px;
+}
+
+.header-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.header-top h2 {
+font-size: 24px;
+font-weight: 700;
+color: #1a1a1a;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.count-box{
+padding:12px 20px;
+border-radius:14px;
+background:#f4f1ea;
+color:#1a1a1a;
+font-weight:600;
+font-size: 14px;
+border:1px solid #e5e5e0;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.logout-btn{
+padding:12px 22px;
+background:#1a1a1a;
+color:white;
+border-radius:14px;
+font-weight:500;
+font-size: 14px;
+border:none;
+cursor:pointer;
+transition:.3s;
+}
+
+.logout-btn:hover{
+background:#f44336;
+box-shadow: 0 4px 12px rgba(244,67,54,0.2);
+}
+
+/* RUNNING TEXT NOTICE BAR */
+.notice-bar {
+background: #2a2f35;
+color: #ffffff;
+padding: 8px 20px;
+border-radius: 12px;
+margin-top: 20px;
+font-size: 12px;
+font-weight: 500;
+overflow: hidden;
+white-space: nowrap;
+border: 1px solid #1e2226;
+}
+
+.notice-bar marquee {
+vertical-align: middle;
+}
+
+/* CATEGORY SEPARATORS */
+.cat-wrapper {
+margin-bottom: 40px;
+}
+
+.cat-title {
+font-size: 14px;
+text-transform: uppercase;
+letter-spacing: 2px;
+color: #555555;
+font-weight: 700;
+margin-bottom: 20px;
+padding-left: 5px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.cat-title::after {
+content: '';
+flex: 1;
+height: 1px;
+background: #e5e5e0;
+}
+
+/* CARDS GRID SYSTEM */
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+}
+
+/* CARD LAYOUT: DARK PREMIUM CHARCOAL */
+.menu-card{
+padding:30px 24px;
+border-radius:22px;
+text-align:left;
+cursor:pointer;
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+background:#2a2f35; /* Abu-abu Tua Solid */
+border:1px solid #1e2226;
+color:#ffffff;
+box-shadow:0 4px 15px rgba(0,0,0,.04);
+display:flex;
+flex-direction:column;
+justify-content:center;
+position: relative;
+overflow: hidden;
+}
+
+.menu-card::after {
+content: '➔';
+position: absolute;
+right: 25px;
+bottom: 25px;
+font-size: 18px;
+color: rgba(255, 255, 255, 0.15);
+transition: 0.3s;
+}
+
+.menu-card:hover::after {
+color: #ffffff;
+transform: translateX(5px);
+}
+
+.menu-card span {
+font-size: 16px;
+font-weight: 600;
+line-height: 1.4;
+padding-right: 20px;
+}
+
+.menu-card small{
+font-size:11.5px;
+color:#b0b7bd; /* Abu kontras terang */
+letter-spacing:.2px;
+font-weight:400;
+margin-top:10px;
+line-height: 1.5;
+display: block;
+}
+
+/* HOVER EFFECT */
+.menu-card:hover{
+transform:translateY(-5px);
+background:#1c1f24 !important; /* Berubah menjadi jauh lebih gelap tegas */
+box-shadow:0 12px 28px rgba(0,0,0,.16) !important;
+border-color: #111316;
+}
+
+/* EXCLUSIVE BLACK CARD FOR BUKU SAKU */
+.menu-card.pdf-card {
+background:#111111; /* Hitam Jet Black */
+border-color:#000000;
+}
+.menu-card.pdf-card small {
+color: #858585;
+}
+
+/* POPUP NOTIFICATION */
+.popup{
+position:fixed;
+top:30px;
+right:30px;
+background:#1a1a1a;
+color:white;
+padding:18px 24px;
+border-left:5px solid #dcd8cd;
+border-radius:14px;
+z-index:9999;
+}
+
+footer{
+text-align:center;
+padding:60px 30px 30px 30px;
+color:#888888;
+font-size:13px;
+letter-spacing: 1px;
+font-weight: 500;
+border-top: 1px solid #e5e5e0;
+margin-top: 40px;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media(max-width:768px){
+.login-card{ padding:35px 24px; border-radius: 22px; }
+.login-card h1{ font-size:22px; }
+#dashboard{ padding:20px 16px; }
+.main-header { padding: 20px; border-radius: 18px; }
+.menu-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loadingScreen" style="display: none;">
+<div class="loader"></div>
+<h3 style="color:#1a1a1a;font-weight:600;">Menghubungkan ke Sistem...</h3>
+</div>
+
+<section id="loginPage" class="center-page">
+<div class="login-card">
+<h1>TRYOUT SIMULASI CAT<br>AMI & PMK</h1>
+<p class="subtitle">PERSONA RESEARCH & CONSULTING</p>
+<input type="password" id="passwordInput" placeholder="Masukkan Kata Sandi Akses">
+<button class="login-btn" id="loginBtn">MASUK KE DASHBOARD</button>
+</div>
+</section>
+
+<section id="dashboard" class="hidden">
+<div class="main-header">
+<div class="header-top">
+<div>
+<h2>Sistem CAT Tryout Mandiri</h2>
+<p id="welcomeText" style="color:#666666; margin-top:4px; font-size: 14px;"></p>
+</div>
+<div class="header-right">
+<div class="count-box" id="countdown">Memuat Sisa Waktu...</div>
+<button class="logout-btn" id="logoutBtn">Keluar</button>
+</div>
+</div>
+<div class="notice-bar">
+<marquee scrollamount="4">📢 PENGUMUMAN: Silakan pelajari Materi Buku Saku terlebih dahulu sebelum memulai pengerjaan modul tryout untuk hasil analisis kompetensi yang maksimal.</marquee>
+</div>
+</div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Materi Utama & Doktrin Dasar</div>
+<div class="menu-grid">
+<div class="menu-card pdf-card" data-link="Buku_Saku_AMI_PMK_Revisi_Final.pdf">
+<span>📖 BUKU SAKU AMI & PMK</span>
+<small>Strategi pengerjaan taktis, ringkasan nilai batas kelulusan, dan intisari dimensi penilaian wawancara.</small>
+</div>
+</div>
+</div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Asesmen Mental Ideologi (AMI)</div>
+<div class="menu-grid">
+<div class="menu-card" data-link="ami_1.html">
+<span>🛡️ ASESMEN MENTAL IDEOLOGI 1</span>
+<small>Uji wawasan kebangsaan, materi bela negara, pemahaman Pancasila, dan respon isu kritis kenegaraan.</small>
+</div>
+<div class="menu-card" data-link="ami_3.html">
+<span>🛡️ ASESMEN MENTAL IDEOLOGI 2</span>
+<small>Pendalaman doktrin, uji konsistensi sikap bernegara, dan penyelarasan prinsip integritas diri.</small>
+</div>
+</div>
+</div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Penelusuran Mental Kepribadian (PMK)</div>
+<div class="menu-grid">
+<div class="menu-card" data-link="pmk_1.html">
+<span>👤 PMK PERSONALITY INVENTORY 1</span>
+<small>Pemetaan aspek kestabilan emosi operasional, loyalitas organisasi, dan grafik potensi pelanggaran disiplin.</small>
+</div>
+<div class="menu-card" data-link="pmk_2.html">
+<span>👤 PMK PERSONALITY INVENTORY 2</span>
+<small>Aspek kemampuan adaptasi sosial, kepemimpinan, kendali sosiopsikologis, dan resolusi konflik.</small>
+</div>
+</div>
+</div>
+
+<div class="cat-wrapper">
+<div class="cat-title">Integrasi Sistem & Situational Judgement</div>
+<div class="menu-grid">
+<div class="menu-card" data-link="ami_pmk.html">
+<span>🔄 INTEGRASI AMI & PMK 1</span>
+<small>Uji sinkronisasi silang antara integritas kepribadian dengan kepatuhan ideologi kedinasan.</small>
+</div>
+<div class="menu-card" data-link="ami_pmk_b.html">
+<span>🔄 INTEGRASI AMI & PMK 2</span>
+<small>Paket pengkondisian mental khusus dengan tingkat kompleksitas penalaran kasus yang diperluas.</small>
+</div>
+<div class="menu-card" data-link="stj_ami_pmk_1.html">
+<span>📊 SITUATIONAL JUDGEMENT TEST 1</span>
+<small>Simulasi dilema moral dunia kerja operasional dan penilaian ketepatan pengambilan keputusan.</small>
+</div>
+<div class="menu-card" data-link="stj_ami_pmk_2.html">
+<span>📊 SITUATIONAL JUDGEMENT TEST 2</span>
+<small>Validasi konsistensi profil jawaban guna mendeteksi kecenderungan manipulasi data (faking).</small>
+</div>
+</div>
+</div>
+</section>
+
+<div id="popup" class="popup hidden"></div>
+
+<footer>
+&copy; PERSONA RESEARCH & CONSULTING 087742515786 &bull; ALL RIGHTS RESERVED
+</footer>
+
+<script>
+// MEMBERSIHKAN FORCE SESSION LAMA BIAR LAYOUT BARU LANGSUNG KELUAR
+localStorage.clear();
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXC1m2C3j5RyBg9uNNjdcB7WZpSntBT_F_AcOv0mtfluMdxLhHyCp4N3pQi8mEeuZy/exec";
+
+const passwordList = [
+"A7B9PRCX1N", "K2W5PRCY7M", "M9R3PRCZ4L", "X8Q1PRCB2K", "L4P7PRCV9J",
+"J3N6PRCH5H", "H5T2PRCF3G", "V1Z8PRCD9F", "F6Y3PRCB4D", "D2G9PRCN1B",
+"B4X7PRCP9V", "N1V8PRCR3K", "P9K2PRCT5M", "R3M6PRCZ8J", "T5J2PRCY3W",
+"Z8W1PRCG9F", "Y3F6PRCC4D", "G9D2PRCW1X", "C4X8PRCQ8V", "W1V7PRCL2R",
+"Q8R3PRCK6P", "L2P9PRCJ7M", "K6M4PRCH2N", "J7N3PRCF9T", "H2T5PRCD4Y",
+"F9Y1PRCB8G", "D4G6PRCN3X", "B8X2PRCP1V", "N3V9PRCS5K", "P1K7PRCU9A",
+"S5A2PRCC3E", "U9E1PRCE8H", "C3H7PRCG4T", "E8T2PRCL9W", "G4W6PRCX2K",
+"L9K1PRCM5Y", "X2Y7PRCR8N", "M5N3PRCV3P", "R8P4PRCF1Z", "V3Z9PRCD9B",
+"F1B7PRCJ4H", "D9H2PRCT2K", "J4K6PRCQ5W", "T2W8PRCA3M", "Q5M1PRCN7B",
+"A3B9PRCK4P", "N7P2PRCR1X", "K4X8PRCH9Z", "R1Z7PRCF3F", "H9F3PRCB2D"
+];
+
+const loginBtn = document.getElementById("loginBtn");
+const passwordInput = document.getElementById("passwordInput");
+const loginPage = document.getElementById("loginPage");
+const dashboard = document.getElementById("dashboard");
+const popup = document.getElementById("popup");
+const welcomeText = document.getElementById("welcomeText");
+const countdown = document.getElementById("countdown");
+const loadingScreen = document.getElementById("loadingScreen");
+
+function getDeviceId(){
+const rawData = [
+navigator.userAgent, navigator.platform, navigator.language,
+screen.width, screen.height, window.devicePixelRatio,
+Intl.DateTimeFormat().resolvedOptions().timeZone,
+navigator.hardwareConcurrency || "cpu"
+].join("###");
+return generateHash(rawData);
+}
+
+function generateHash(str){
+let hash = 0;
+for(let i=0;i<str.length;i++){
+hash=((hash<<5)-hash)+str.charCodeAt(i);
+hash|=0;
+}
+return "PRC-"+Math.abs(hash);
+}
+
+function showPopup(text){
+popup.innerText=text;
+popup.classList.remove("hidden");
+setTimeout(()=>{ popup.classList.add("hidden"); },2500);
+}
+
+loginBtn.addEventListener("click",loginSystem);
+
+async function loginSystem(){
+const input = passwordInput.value.trim();
+if(!passwordList.includes(input)){
+showPopup("Password salah.");
+return;
+}
+
+loadingScreen.style.display = "flex";
+const deviceId = getDeviceId();
+
+try {
+const response = await fetch(`${SCRIPT_URL}?password=${input}&deviceId=${deviceId}`);
+const result = await response.json();
+
+if(result.status === "success"){
+localStorage.setItem("loggedInUser", input);
+localStorage.setItem("userFirstLogin", result.firstLogin);
+showPopup("Login berhasil.");
+openDashboard(input, result.firstLogin);
+} else {
+showPopup(result.message);
+loadingScreen.style.display = "none";
+}
+} catch (error) {
+showPopup("Gagal sinkronisasi data online. Pastikan Web App Script aktif.");
+loadingScreen.style.display = "none";
+}
+}
+
+function openDashboard(user, firstLoginTime){
+loginPage.classList.add("hidden");
+dashboard.classList.remove("hidden");
+loadingScreen.style.display = "none";
+welcomeText.innerHTML=`Peserta Aktif: <b>${user}</b>`;
+startCountdown(Number(firstLoginTime));
+}
+
+let countdownInterval=null;
+function startCountdown(firstLoginTime){
+clearInterval(countdownInterval);
+countdownInterval=setInterval(()=>{\nconst end = firstLoginTime + (30*24*60*60*1000);
+const diff = end - Date.now();
+
+if(diff <= 0){
+countdown.innerText="Expired";
+clearInterval(countdownInterval);
+localStorage.clear();
+setTimeout(()=>{ location.reload(); }, 2000);
+return;
+}
+
+const days=Math.floor(diff/(1000*60*60*24));
+const hours=Math.floor((diff/(1000*60*60))%24);
+const minutes=Math.floor((diff/(1000*60))%60);
+countdown.innerText=`Sisa Aktif: ${days}H ${hours}J ${minutes}M`;
+},1000);
+}
+
+document.getElementById("logoutBtn").addEventListener("click",()=>{
+localStorage.clear();
+location.reload();
+});
+
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&e.key==="I")||(e.ctrlKey&&e.key==="u")){
+e.preventDefault();
+}
+});
+
+document.querySelectorAll(".menu-card").forEach(card=>{
+card.addEventListener("click",()=>{
+const target=card.getAttribute("data-link");
+if(target) window.location.href=target;
+});
+});
+</script>
+</body>
+</html>
